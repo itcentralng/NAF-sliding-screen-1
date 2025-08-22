@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  line-height: 1.2;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: url('/img/Welcome\ screen.png') no-repeat center center/cover;
+  object-fit: contain;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: 'cinzel', sans-serif;
+}
+
+.army-logo {
+  margin: auto;
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+
+.welcome-container .logo-content {
+  width: 60%;
+  margin: auto;
+  margin-bottom: 1rem;
+  font-style: 'cinzel';
+  font-weight: 300;
+}
+
+.welcome-container .welcome-heading {
+  width: 70%;
+  margin: auto;
+  margin-bottom: 1rem;
+}
+
+.welcome-container .welcome-description {
+  margin-bottom: 2rem;
+  font-family: 'noto sans' sans-serif;
+}
+
+.welcome-container .welcome-btn a{
+  color: #fff;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+.welcome-btn {
+  opacity: 0.8;
+  transition: 0.3s ease-in;
+}
+
+.welcome-btn:hover {
+  opacity: 1;
+}
+
+.welcome-btn i {
+  font-size: 13px;
+  margin-left: 0.2rem;
+  text-align: center;
+}
+
+.glass-background {
+  background: rgba(255, 255, 255, .1);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, .2);
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-right: 1px solid rgba(255, 255, 255, .2);
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(5px);
+  padding: 10px;
+}
