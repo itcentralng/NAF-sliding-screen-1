@@ -52,6 +52,60 @@ h1, h2 {
   font-family: 'noto sans' sans-serif;
 }
 
+.personalities-overview {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 80%;
+  margin: 0 auto 2rem auto;
+}
+
+.personality-item {
+  background: rgba(255, 255, 255, .1);
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+  text-align: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.personality-item:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.personality-item h3 {
+  font-family: 'cinzel', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.personality-item p {
+  font-family: 'noto sans', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .personalities-overview {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .personality-item h3 {
+    font-size: 14px;
+  }
+  
+  .personality-item p {
+    font-size: 13px;
+  }
+}
+
 .welcome-container .welcome-btn a{
   color: #fff;
   font-size: 15px;
