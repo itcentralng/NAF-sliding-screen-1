@@ -206,3 +206,62 @@ h1, h2 {
   backdrop-filter: blur(5px);
   padding: 10px;
 }
+
+/* Commandant Profile Section */
+.commandant-profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+
+.commandant-main-profile {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  align-items: center;
+}
+
+.commandant-main-profile .profile-image {
+  flex: 0 0 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.commandant-main-profile .profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.commandant-main-profile .profile-bio {
+  flex: 1;
+}
+
+.commandant-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 15px;
+}
+
+.commandant-card {
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.commandant-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.commandant-card.selected {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
