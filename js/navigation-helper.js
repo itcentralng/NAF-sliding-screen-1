@@ -9,8 +9,7 @@ const SECTION_POSITIONS = {
   'distinguished-personalities.html': { section: 'home', position: 0 },
   'chiefs-accounts-budget.html': { section: 'chiefs', position: 1 },
   'commanders-081-pag.html': { section: 'commanders', position: 2 },
-  'commandants-nafsfa.html': { section: 'commandants', position: 3 },
-  'legacy-achievements.html': { section: 'achievements', position: 4 }
+  'commandants-nafsfa.html': { section: 'commandants', position: 3 }
 };
 
 /**
@@ -66,8 +65,6 @@ function initializeSlidingNavigation() {
         targetSection = 'commanders';
       } else if (href.includes('commandants-nafsfa.html')) {
         targetSection = 'commandants';
-      } else if (href.includes('legacy-achievements.html')) {
-        targetSection = 'achievements';
       }
       
       // Add click event listener for sliding transition

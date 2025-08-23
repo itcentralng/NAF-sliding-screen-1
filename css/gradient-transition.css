@@ -56,11 +56,7 @@ body {
     #38f9d7 100%);
 }
 
-.achievements-gradient {
-  background: linear-gradient(135deg, 
-    #fa709a 0%, 
-    #fee140 100%);
-}
+
 
 .gradient-content {
   text-align: center;
@@ -194,10 +190,6 @@ body {
 }
 .slide-to-commandants { 
   transform: translateX(-60%); 
-  transition: transform 5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.slide-to-achievements { 
-  transform: translateX(-80%); 
   transition: transform 5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 

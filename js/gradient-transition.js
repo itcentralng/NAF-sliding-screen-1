@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const progressFill = document.querySelector('.progress-fill');
   const progressText = document.querySelector('.progress-text');
   
-  // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants, 4=achievements)
+  // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants)
   const sectionMap = {
     'home': {
       class: 'slide-to-home',
@@ -34,12 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
       position: 3,
       name: 'Commandants NAFSFA',
       messages: ['Loading NAFSFA leaders...', 'Preparing school data...', 'Almost ready...']
-    },
-    'achievements': {
-      class: 'slide-to-achievements',
-      position: 4,
-      name: 'Legacy Achievements',
-      messages: ['Loading achievements...', 'Preparing milestone data...', 'Almost ready...']
     }
   };
   
@@ -125,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
     container.classList.remove('slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants');
     
     // Add the current position class
-    const positionClasses = ['slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants', 'slide-to-achievements'];
+    const positionClasses = ['slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants'];
     if (position >= 0 && position < positionClasses.length) {
       container.classList.add(positionClasses[position]);
     }
