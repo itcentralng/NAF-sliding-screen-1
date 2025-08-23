@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const sectionMap = {
     'home': {
       position: 0,
-      name: 'Welcome Home'
+      name: 'Home'
     },
     'chiefs': {
       position: 1,
