@@ -770,9 +770,18 @@
       const backBtn = document.querySelector('.back-btn');
       if (backBtn) {
         backBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Store current section before navigating back
+          navState.storeCurrentSection('commandants');
+          
+          // Navigate back with transition
           window.location.href = this.href;
         });
       }
+      
+      // Store current section on page load
+      navState.storeCurrentSection('commandants');
     });
   </script>
 </body>

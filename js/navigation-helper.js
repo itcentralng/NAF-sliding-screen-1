@@ -12,6 +12,42 @@ const SECTION_POSITIONS = {
   'commandants-nafsfa.html': { section: 'commandants', position: 3 }
 };
 
+// Navigation state management
+class NavigationState {
+  constructor() {
+    this.storageKey = 'nafsfa_last_section';
+  }
+
+  // Store the current section when visiting a page
+  storeCurrentSection(section) {
+    if (section && section !== 'home') {
+      localStorage.setItem(this.storageKey, section);
+    }
+  }
+
+  // Get the last visited section
+  getLastSection() {
+    return localStorage.getItem(this.storageKey) || 'home';
+  }
+
+  // Clear the stored section (when going home)
+  clearLastSection() {
+    localStorage.removeItem(this.storageKey);
+  }
+
+  // Update the last section when navigating back to distinguished personalities
+  setLastSectionFromCurrentPage() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const currentSectionData = SECTION_POSITIONS[currentPage];
+    if (currentSectionData && currentSectionData.section !== 'home') {
+      this.storeCurrentSection(currentSectionData.section);
+    }
+  }
+}
+
+// Global navigation state instance
+const navState = new NavigationState();
+
 /**
  * Get current section based on current page
  */
@@ -27,7 +63,27 @@ function getCurrentSection() {
  */
 function navigateWithSlide(targetPage, targetSection) {
   const currentSectionData = getCurrentSection();
-  const fromSection = currentSectionData.section;
+  
+  // Determine the "from" section based on context
+  let fromSection = currentSectionData.section;
+  
+  // If we're on distinguished personalities page, use the stored last section
+  if (window.location.pathname.includes('distinguished-personalities.html')) {
+    const lastSection = navState.getLastSection();
+    if (lastSection && lastSection !== 'home') {
+      fromSection = lastSection;
+    }
+  }
+  
+  // Store current section for future reference (except for home transitions)
+  if (currentSectionData.section !== 'home') {
+    navState.storeCurrentSection(currentSectionData.section);
+  }
+  
+  // Special handling for home navigation - clear stored section
+  if (targetSection === 'home' || targetPage === 'welcome.html') {
+    navState.clearLastSection();
+  }
   
   // Construct the gradient transition URL with from and to parameters
   const transitionUrl = `gradient-transition.html?section=${targetSection}&page=${targetPage}&from=${fromSection}`;
@@ -154,3 +210,6 @@ style.textContent = `
   }
 `;
 document.head.appendChild(style);
+
+// Make navigation state globally available
+window.navState = navState;

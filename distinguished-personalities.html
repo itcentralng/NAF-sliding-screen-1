@@ -141,13 +141,25 @@
             ripple.style.top = (e.clientY - rect.top) + 'px';
             section.appendChild(ripple);
             
-            // Navigate after animation
+            // Navigate with transition - use the stored last section for "from"
             setTimeout(() => {
-              window.location.href = this.href;
+              const targetPage = this.href.split('page=')[1] || this.href;
+              const targetSection = sectionName;
+              
+              // Use the navigation helper to properly handle transitions
+              if (typeof navigateWithSlide === 'function') {
+                navigateWithSlide(targetPage, targetSection);
+              } else {
+                window.location.href = this.href;
+              }
             }, 400);
           });
         }
       });
+      
+      // Initialize navigation state when page loads
+      // Don't clear last section here - we want to preserve it for transitions
+      console.log('Distinguished personalities page loaded. Last section:', navState.getLastSection());
     });
     
     // Add ripple animation CSS
