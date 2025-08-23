@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const fromSection = urlParams.get('from') || 'home';
   
   const container = document.querySelector('.gradient-container');
-  const sectionLabel = document.getElementById('section-label');
-  const sectionDots = document.querySelectorAll('.section-dot');
   
   // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants)
   const sectionMap = {
@@ -43,14 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize the starting position
   container.classList.add(fromSectionData.class);
-  updateSectionIndicators(currentPosition);
   updateSectionContent(currentPosition);
-  
-  // Show initial section label
-  setTimeout(() => {
-    sectionLabel.textContent = fromSectionData.name;
-    sectionLabel.classList.add('visible');
-  }, 300);
   
   // Start the sliding animation if we need to move
   if (totalSteps > 0) {
@@ -65,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function startSlidingTransition() {
-    sectionLabel.textContent = `Moving to ${currentSection.name}...`;
     slideToNextSection();
   }
   
@@ -85,32 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const positionClasses = ['slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants'];
     container.classList.add(positionClasses[currentPosition]);
     
-    // Update indicators and content
-    updateSectionIndicators(currentPosition);
+    // Update content
     updateSectionContent(currentPosition);
-    
-    // Update section label
-    const sectionKeys = Object.keys(sectionMap);
-    const currentSectionName = sectionMap[sectionKeys[currentPosition]].name;
-    sectionLabel.textContent = currentPosition === targetPosition ? 
-      `Arriving at ${currentSectionName}` : 
-      `Passing through ${currentSectionName}`;
     
     // Continue sliding after transition completes
     setTimeout(() => {
       slideToNextSection();
     }, 2200); // Slightly longer than CSS transition
-  }
-  
-  function updateSectionIndicators(position) {
-    sectionDots.forEach((dot, index) => {
-      dot.classList.remove('active', 'passing');
-      if (index === position) {
-        dot.classList.add('active');
-      } else if (Math.abs(index - position) === 1) {
-        dot.classList.add('passing');
-      }
-    });
   }
   
   function updateSectionContent(position) {
@@ -131,20 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function completeTransition() {
-    sectionLabel.textContent = `Welcome to ${currentSection.name}!`;
-    
+    // Add fade out effect
     setTimeout(() => {
-      sectionLabel.classList.remove('visible');
+      document.body.classList.add('fade-out');
       
-      // Add fade out effect
+      // Navigate to target page
       setTimeout(() => {
-        document.body.classList.add('fade-out');
-        
-        // Navigate to target page
-        setTimeout(() => {
-          window.location.href = targetPage;
-        }, 1000);
-      }, 500);
+        window.location.href = targetPage;
+      }, 1000);
     }, 1500);
   }
 });
