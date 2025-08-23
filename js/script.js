@@ -15,49 +15,56 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.style.opacity = '1';
   }, 100);
   
-  // Handle explore button click with transition
+  // Handle explore button click with broken glass transition
   const exploreButton = document.querySelector('.welcome-btn a');
   if (exploreButton) {
     exploreButton.addEventListener('click', function(e) {
       e.preventDefault();
       
-      // Add loading effect to button
-      const originalText = this.innerHTML;
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-      this.style.pointerEvents = 'none';
+      // Prevent multiple clicks during transition
+      if (window.glassTransition && window.glassTransition.isTransitioning) {
+        return;
+      }
       
-      // Create transition overlay
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(45deg, rgba(0,0,0,0.8), rgba(0,0,0,0.9));
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.6s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-family: 'cinzel', sans-serif;
-        font-size: 18px;
+      // Add button press effect
+      const button = this.closest('.welcome-btn');
+      button.style.transform = 'translateY(-1px) scale(1.02)';
+      button.style.transition = 'all 0.1s ease';
+      
+      // Create ripple effect at click position
+      const rect = button.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      ripple.style.cssText = `
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: translate(-50%, -50%);
+        left: ${e.clientX - rect.left}px;
+        top: ${e.clientY - rect.top}px;
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+        z-index: 10;
       `;
-      overlay.innerHTML = '<div style="text-align: center;"><i class="fas fa-plane" style="font-size: 30px; margin-bottom: 20px; animation: fly 2s infinite;"></i><br>Preparing Distinguished Personalities...</div>';
+      button.appendChild(ripple);
       
-      document.body.appendChild(overlay);
-      
-      // Trigger fade out
+      // Execute broken glass transition
       setTimeout(() => {
-        overlay.style.opacity = '1';
-      }, 50);
+        if (window.glassTransition) {
+          window.glassTransition.execute(this.href, e);
+        } else {
+          // Fallback if broken glass transition is not available
+          window.location.href = this.href;
+        }
+      }, 150);
       
-      // Navigate after animation
+      // Clean up ripple effect
       setTimeout(() => {
-        window.location.href = this.href;
-      }, 1200);
+        if (ripple.parentNode) {
+          ripple.remove();
+        }
+      }, 600);
     });
   }
 });
@@ -69,6 +76,13 @@ style.textContent = `
     0%, 100% { transform: translateX(0) rotate(0deg); }
     25% { transform: translateX(10px) rotate(5deg); }
     75% { transform: translateX(-10px) rotate(-5deg); }
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: translate(-50%, -50%) scale(20);
+      opacity: 0;
+    }
   }
   
   .fade-in {

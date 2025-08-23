@@ -57,6 +57,121 @@ function getCurrentSection() {
 }
 
 /**
+ * Navigate to a section with appropriate transition (broken glass or gradient slide)
+ * @param {string} targetPage - Target page filename
+ * @param {string} targetSection - Target section identifier
+ */
+function navigateWithTransition(targetPage, targetSection) {
+  const currentPage = window.location.pathname.split('/').pop();
+  
+  // Check if we should use broken glass transition (welcome → distinguished personalities)
+  if (currentPage === 'welcome.html' && targetPage === 'distinguished-personalities.html') {
+    // Use broken glass transition
+    navigateWithBrokenGlass(targetPage);
+    return;
+  }
+  
+  // Otherwise use gradient transition
+  navigateWithSlide(targetPage, targetSection);
+}
+
+/**
+ * Navigate with broken glass effect
+ * @param {string} targetPage - Target page filename
+ */
+function navigateWithBrokenGlass(targetPage) {
+  // Create broken glass overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'glass-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  // Create multiple glass shards
+  for (let i = 0; i < 15; i++) {
+    createGlassShard(overlay, i);
+  }
+  
+  // Fade in overlay
+  setTimeout(() => {
+    overlay.style.opacity = '1';
+  }, 50);
+  
+  // Start glass breaking animation
+  setTimeout(() => {
+    const shards = overlay.querySelectorAll('.glass-shard');
+    shards.forEach((shard, index) => {
+      setTimeout(() => {
+        shard.classList.add('shatter');
+        // Apply random transform using stored values
+        const shatterX = shard.dataset.shatterX;
+        const shatterY = shard.dataset.shatterY;
+        const shatterRotation = shard.dataset.shatterRotation;
+        shard.style.transform = `translateX(${shatterX}px) translateY(${shatterY}px) rotate(${shatterRotation}deg) scale(0.1)`;
+      }, index * 100);
+    });
+  }, 500);
+  
+  // Navigate to target page
+  setTimeout(() => {
+    window.location.href = targetPage;
+  }, 2500);
+}
+
+/**
+ * Create a single glass shard element
+ */
+function createGlassShard(container, index) {
+  const shard = document.createElement('div');
+  shard.className = 'glass-shard';
+  
+  // Random positioning and sizing
+  const size = Math.random() * 100 + 50;
+  const x = Math.random() * window.innerWidth;
+  const y = Math.random() * window.innerHeight;
+  const rotation = Math.random() * 360;
+  
+  shard.style.cssText = `
+    position: absolute;
+    width: ${size}px;
+    height: ${size}px;
+    left: ${x}px;
+    top: ${y}px;
+    background: linear-gradient(135deg, 
+      rgba(255,255,255,0.3) 0%, 
+      rgba(255,255,255,0.1) 50%, 
+      rgba(255,255,255,0.05) 100%);
+    border: 1px solid rgba(255,255,255,0.2);
+    transform: rotate(${rotation}deg);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: ${Math.random() * 20}px;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  `;
+  
+  // Store shatter animation values as data attributes
+  shard.dataset.shatterX = Math.random() * 400 - 200;
+  shard.dataset.shatterY = Math.random() * 400 - 200;
+  shard.dataset.shatterRotation = Math.random() * 360;
+  
+  container.appendChild(shard);
+}
+
+/**
  * Navigate to a section with sliding transition
  * @param {string} targetPage - Target page filename
  * @param {string} targetSection - Target section identifier
@@ -135,8 +250,8 @@ function initializeSlidingNavigation() {
           this.style.transform = 'scale(1)';
         }, 200);
         
-        // Navigate with sliding effect
-        navigateWithSlide(href, targetSection);
+        // Navigate with appropriate transition
+        navigateWithTransition(href, targetSection);
       });
     });
   });
@@ -190,7 +305,7 @@ function enhanceBackButtons() {
         }, 50);
         
         setTimeout(() => {
-          navigateWithSlide('distinguished-personalities.html', 'home');
+          navigateWithTransition('distinguished-personalities.html', 'home');
         }, 800);
       });
     });
@@ -201,12 +316,21 @@ function enhanceBackButtons() {
 initializeSlidingNavigation();
 enhanceBackButtons();
 
-// Add slideLeft animation CSS
+// Add slideLeft animation CSS and glass shatter effects
 const style = document.createElement('style');
 style.textContent = `
   @keyframes slideLeft {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(-10px); }
+  }
+  
+  .glass-shard {
+    will-change: transform, opacity;
+  }
+  
+  .glass-shard.shatter {
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 `;
 document.head.appendChild(style);
