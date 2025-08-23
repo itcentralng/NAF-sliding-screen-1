@@ -87,9 +87,9 @@ body {
   text-align: center;
   color: white;
   z-index: 2;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.8s ease-in-out;
+  /* Removed opacity transition to keep text static */
 }
 
 .gradient-section.active .gradient-content {
