@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+@import url('fonts.css');
 
 * {
   box-sizing: border-box;
@@ -10,7 +10,7 @@
 }
 
 body {
-  background: url('/img/Welcome\ screen.png') no-repeat center center/cover;
+  background: url('../img/Welcomescreen.png') no-repeat center center/cover;
   object-fit: contain;
 }
 
