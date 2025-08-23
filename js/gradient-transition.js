@@ -6,129 +6,120 @@ document.addEventListener('DOMContentLoaded', function() {
   const fromSection = urlParams.get('from') || 'home';
   
   const container = document.querySelector('.gradient-container');
-  const progressFill = document.querySelector('.progress-fill');
-  const progressText = document.querySelector('.progress-text');
+  const sectionLabel = document.getElementById('section-label');
+  const sectionDots = document.querySelectorAll('.section-dot');
   
   // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants)
   const sectionMap = {
     'home': {
       class: 'slide-to-home',
       position: 0,
-      name: 'Home',
-      messages: ['Welcome back...', 'Loading home...', 'Almost ready...']
+      name: 'Welcome Home'
     },
     'chiefs': {
       class: 'slide-to-chiefs',
       position: 1,
-      name: 'Chiefs of Accounts & Budget',
-      messages: ['Loading financial leaders...', 'Preparing accounts data...', 'Almost ready...']
+      name: 'Chiefs of Accounts & Budget'
     },
     'commanders': {
       class: 'slide-to-commanders', 
       position: 2,
-      name: 'Commanders 081 PAG',
-      messages: ['Loading PAG commanders...', 'Preparing personnel data...', 'Almost ready...']
+      name: 'Commanders 081 PAG'
     },
     'commandants': {
       class: 'slide-to-commandants',
       position: 3,
-      name: 'Commandants NAFSFA',
-      messages: ['Loading NAFSFA leaders...', 'Preparing school data...', 'Almost ready...']
+      name: 'Commandants NAFSFA'
     }
   };
   
   const currentSection = sectionMap[targetSection];
   const fromSectionData = sectionMap[fromSection];
   
-  // Calculate sliding distance and time (5 seconds per section)
-  const distance = Math.abs(currentSection.position - fromSectionData.position);
-  const slidingTime = distance * 5000; // 5 seconds per section in milliseconds
-  const progressInterval = slidingTime / 100; // Divide the sliding time into 100 progress steps
-  
-  let progressValue = 0;
-  let messageIndex = 0;
   let currentPosition = fromSectionData.position;
-  const direction = currentSection.position > fromSectionData.position ? 1 : -1;
+  const targetPosition = currentSection.position;
+  const direction = targetPosition > currentPosition ? 1 : -1;
+  const totalSteps = Math.abs(targetPosition - currentPosition);
   
-  // Update progress text with sliding information
-  updateSlidingMessage();
+  // Initialize the starting position
+  container.classList.add(fromSectionData.class);
+  updateSectionIndicators(currentPosition);
+  updateSectionContent(currentPosition);
   
-  // Start the sliding animation
+  // Show initial section label
   setTimeout(() => {
-    container.classList.add('sliding');
-    slideToTarget();
-  }, 500);
+    sectionLabel.textContent = fromSectionData.name;
+    sectionLabel.classList.add('visible');
+  }, 300);
   
-  function updateSlidingMessage() {
-    if (distance === 0) {
-      progressText.textContent = `Already at ${currentSection.name}`;
-    } else {
-      const verb = direction > 0 ? 'forward' : 'backward';
-      progressText.textContent = `Sliding ${verb} ${distance} section${distance > 1 ? 's' : ''} to ${currentSection.name}...`;
+  // Start the sliding animation if we need to move
+  if (totalSteps > 0) {
+    setTimeout(() => {
+      startSlidingTransition();
+    }, 1000);
+  } else {
+    // If we're already at the target, just show completion
+    setTimeout(() => {
+      completeTransition();
+    }, 2000);
+  }
+  
+  function startSlidingTransition() {
+    sectionLabel.textContent = `Moving to ${currentSection.name}...`;
+    slideToNextSection();
+  }
+  
+  function slideToNextSection() {
+    if (currentPosition === targetPosition) {
+      completeTransition();
+      return;
     }
-  }
-  
-  function slideToTarget() {
-    const slideInterval = setInterval(() => {
-      progressValue += 100 / (slidingTime / 100); // Progress based on sliding time
-      
-      if (progressValue > 100) progressValue = 100;
-      
-      progressFill.style.width = progressValue + '%';
-      
-      // Update sliding position visualization
-      const currentStep = Math.floor((progressValue / 100) * distance);
-      const newPosition = fromSectionData.position + (direction * currentStep);
-      
-      if (newPosition !== currentPosition) {
-        currentPosition = newPosition;
-        updateScreenPosition(currentPosition);
-      }
-      
-      // Update messages based on progress
-      const messageProgress = Math.floor((progressValue / 100) * currentSection.messages.length);
-      if (messageProgress < currentSection.messages.length && messageProgress !== messageIndex) {
-        messageIndex = messageProgress;
-        progressText.textContent = currentSection.messages[messageIndex];
-      }
-      
-      // Show intermediate sections during sliding
-      if (progressValue < 100 && distance > 1) {
-        const intermediateMessages = [
-          'Sliding through sections...',
-          'Passing intermediate stations...',
-          'Continuing the journey...',
-          'Almost at destination...'
-        ];
-        const msgIndex = Math.floor((progressValue / 100) * intermediateMessages.length);
-        if (msgIndex < intermediateMessages.length) {
-          progressText.textContent = intermediateMessages[msgIndex];
-        }
-      }
-      
-      // Complete the sliding
-      if (progressValue >= 100) {
-        clearInterval(slideInterval);
-        completeTransition();
-      }
-    }, progressInterval);
-  }
-  
-  function updateScreenPosition(position) {
+    
+    // Move to the next position
+    currentPosition += direction;
+    
     // Remove all position classes
     container.classList.remove('slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants');
     
-    // Add the current position class
+    // Add the new position class for smooth transition
     const positionClasses = ['slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants'];
-    if (position >= 0 && position < positionClasses.length) {
-      container.classList.add(positionClasses[position]);
-    }
+    container.classList.add(positionClasses[currentPosition]);
     
-    // Activate the current section content
+    // Update indicators and content
+    updateSectionIndicators(currentPosition);
+    updateSectionContent(currentPosition);
+    
+    // Update section label
+    const sectionKeys = Object.keys(sectionMap);
+    const currentSectionName = sectionMap[sectionKeys[currentPosition]].name;
+    sectionLabel.textContent = currentPosition === targetPosition ? 
+      `Arriving at ${currentSectionName}` : 
+      `Passing through ${currentSectionName}`;
+    
+    // Continue sliding after transition completes
+    setTimeout(() => {
+      slideToNextSection();
+    }, 2200); // Slightly longer than CSS transition
+  }
+  
+  function updateSectionIndicators(position) {
+    sectionDots.forEach((dot, index) => {
+      dot.classList.remove('active', 'passing');
+      if (index === position) {
+        dot.classList.add('active');
+      } else if (Math.abs(index - position) === 1) {
+        dot.classList.add('passing');
+      }
+    });
+  }
+  
+  function updateSectionContent(position) {
+    // Remove active class from all sections
     document.querySelectorAll('.gradient-section').forEach(section => {
       section.classList.remove('active');
     });
     
+    // Add active class to current section
     const sectionKeys = Object.keys(sectionMap);
     if (position >= 0 && position < sectionKeys.length) {
       const sectionKey = sectionKeys[position];
@@ -140,11 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function completeTransition() {
+    sectionLabel.textContent = `Welcome to ${currentSection.name}!`;
+    
     setTimeout(() => {
-      progressText.textContent = `Arrived at ${currentSection.name}!`;
-      
-      // Final position update
-      updateScreenPosition(currentSection.position);
+      sectionLabel.classList.remove('visible');
       
       // Add fade out effect
       setTimeout(() => {
@@ -154,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           window.location.href = targetPage;
         }, 1000);
-      }, 1000);
-    }, 500);
+      }, 500);
+    }, 1500);
   }
   
   // Add floating particles effect
@@ -174,17 +164,17 @@ function createFloatingParticles() {
     z-index: 1;
   `;
   
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 15; i++) {
     const particle = document.createElement('div');
     particle.style.cssText = `
       position: absolute;
-      width: ${Math.random() * 4 + 2}px;
-      height: ${Math.random() * 4 + 2}px;
-      background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.2});
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      background: rgba(255, 255, 255, ${Math.random() * 0.4 + 0.1});
       border-radius: 50%;
       left: ${Math.random() * 100}%;
       top: ${Math.random() * 100}%;
-      animation: floatParticle ${Math.random() * 10 + 10}s infinite linear;
+      animation: floatParticle ${Math.random() * 15 + 10}s infinite linear;
     `;
     particleContainer.appendChild(particle);
   }
@@ -196,7 +186,7 @@ function createFloatingParticles() {
   style.textContent = `
     @keyframes floatParticle {
       0% {
-        transform: translateY(100vh) rotate(0deg);
+        transform: translateX(-100px) translateY(100vh) rotate(0deg);
         opacity: 0;
       }
       10% {
@@ -206,7 +196,7 @@ function createFloatingParticles() {
         opacity: 1;
       }
       100% {
-        transform: translateY(-100px) rotate(360deg);
+        transform: translateX(100px) translateY(-100px) rotate(360deg);
         opacity: 0;
       }
     }
