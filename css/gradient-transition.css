@@ -17,8 +17,8 @@ body {
   width: 400%; /* 4 sections * 100% each */
   height: 100vh;
   display: flex;
-  transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
+  /* Removed transition - now controlled by JavaScript for frame-by-frame animation */
 }
 
 .gradient-section {
@@ -59,29 +59,6 @@ body {
   margin: 0;
 }
 
-/* Slide animations for different sections with enhanced transitions */
-.slide-to-home { 
-  transform: translateX(0%); 
-  transition: transform 2s cubic-bezier(0.23, 1, 0.320, 1);
-}
-.slide-to-chiefs { 
-  transform: translateX(-25%); 
-  transition: transform 2s cubic-bezier(0.23, 1, 0.320, 1);
-}
-.slide-to-commanders { 
-  transform: translateX(-50%); 
-  transition: transform 2s cubic-bezier(0.23, 1, 0.320, 1);
-}
-.slide-to-commandants { 
-  transform: translateX(-75%); 
-  transition: transform 2s cubic-bezier(0.23, 1, 0.320, 1);
-}
-
-/* Sliding state for continuous motion */
-.gradient-container.sliding {
-  transition-duration: 2s; /* Smooth sliding transition */
-}
-
 /* Enhanced section transitions */
 .gradient-section {
   position: relative;
@@ -105,14 +82,14 @@ body {
   opacity: 1;
 }
 
-/* Enhanced gradient content animations - simplified */
+/* Enhanced gradient content animations - optimized for frame-by-frame */
 .gradient-content {
   text-align: center;
   color: white;
   z-index: 2;
   opacity: 0;
   transform: translateY(0);
-  transition: opacity 1s ease;
+  transition: opacity 0.8s ease-in-out;
 }
 
 .gradient-section.active .gradient-content {

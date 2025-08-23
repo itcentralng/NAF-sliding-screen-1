@@ -10,43 +10,50 @@ document.addEventListener('DOMContentLoaded', function() {
   // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants)
   const sectionMap = {
     'home': {
-      class: 'slide-to-home',
       position: 0,
       name: 'Welcome Home'
     },
     'chiefs': {
-      class: 'slide-to-chiefs',
       position: 1,
       name: 'Chiefs of Accounts & Budget'
     },
     'commanders': {
-      class: 'slide-to-commanders', 
       position: 2,
       name: 'Commanders 081 PAG'
     },
     'commandants': {
-      class: 'slide-to-commandants',
       position: 3,
       name: 'Commandants NAFSFA'
     }
   };
   
-  const currentSection = sectionMap[targetSection];
   const fromSectionData = sectionMap[fromSection];
+  const targetSectionData = sectionMap[targetSection];
   
-  let currentPosition = fromSectionData.position;
-  const targetPosition = currentSection.position;
-  const direction = targetPosition > currentPosition ? 1 : -1;
-  const totalSteps = Math.abs(targetPosition - currentPosition);
+  // Animation state
+  let animationId = null;
+  let startTime = null;
+  let isAnimating = false;
+  
+  // Position values (0 = home, 1 = chiefs, 2 = commanders, 3 = commandants)
+  const startPosition = fromSectionData.position;
+  const endPosition = targetSectionData.position;
+  const totalDistance = endPosition - startPosition;
+  
+  // Animation duration in milliseconds (3 seconds for smooth movement)
+  const animationDuration = 3000;
+  
+  // Disable CSS transitions for manual control
+  container.style.transition = 'none';
   
   // Initialize the starting position
-  container.classList.add(fromSectionData.class);
-  updateSectionContent(currentPosition);
+  setContainerPosition(startPosition);
+  updateSectionContent(startPosition);
   
   // Start the sliding animation if we need to move
-  if (totalSteps > 0) {
+  if (totalDistance !== 0) {
     setTimeout(() => {
-      startSlidingTransition();
+      startSmoothTransition();
     }, 1000);
   } else {
     // If we're already at the target, just show completion
@@ -55,33 +62,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 2000);
   }
   
-  function startSlidingTransition() {
-    slideToNextSection();
+  function easeInOutQuad(t) {
+    // Smooth acceleration and deceleration
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
   }
   
-  function slideToNextSection() {
-    if (currentPosition === targetPosition) {
-      completeTransition();
-      return;
+  function lerp(start, end, t) {
+    // Linear interpolation
+    return start + (end - start) * t;
+  }
+  
+  function setContainerPosition(position) {
+    // Each section is 25% wide, so we translate by position * -25%
+    const translateX = position * -25;
+    container.style.transform = `translateX(${translateX}%)`;
+  }
+  
+  function startSmoothTransition() {
+    isAnimating = true;
+    startTime = null;
+    
+    function animateFrame(currentTime) {
+      if (!startTime) {
+        startTime = currentTime;
+      }
+      
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / animationDuration, 1);
+      
+      // Apply easing function for smooth acceleration/deceleration
+      const easedProgress = easeInOutQuad(progress);
+      
+      // Calculate current position using interpolation
+      const currentPosition = lerp(startPosition, endPosition, easedProgress);
+      
+      // Apply the position to the container
+      setContainerPosition(currentPosition);
+      
+      // Update active section based on current position
+      const activeIndex = Math.round(currentPosition);
+      updateSectionContent(activeIndex);
+      
+      // Continue animation if not complete
+      if (progress < 1) {
+        animationId = requestAnimationFrame(animateFrame);
+      } else {
+        // Animation complete
+        isAnimating = false;
+        setContainerPosition(endPosition);
+        updateSectionContent(endPosition);
+        completeTransition();
+      }
     }
     
-    // Move to the next position
-    currentPosition += direction;
-    
-    // Remove all position classes
-    container.classList.remove('slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants');
-    
-    // Add the new position class for smooth transition
-    const positionClasses = ['slide-to-home', 'slide-to-chiefs', 'slide-to-commanders', 'slide-to-commandants'];
-    container.classList.add(positionClasses[currentPosition]);
-    
-    // Update content
-    updateSectionContent(currentPosition);
-    
-    // Continue sliding after transition completes
-    setTimeout(() => {
-      slideToNextSection();
-    }, 2200); // Slightly longer than CSS transition
+    // Start the animation
+    animationId = requestAnimationFrame(animateFrame);
   }
   
   function updateSectionContent(position) {
@@ -92,8 +127,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add active class to current section
     const sectionKeys = Object.keys(sectionMap);
-    if (position >= 0 && position < sectionKeys.length) {
-      const sectionKey = sectionKeys[position];
+    const activeIndex = Math.max(0, Math.min(Math.floor(position + 0.5), sectionKeys.length - 1));
+    
+    if (activeIndex >= 0 && activeIndex < sectionKeys.length) {
+      const sectionKey = sectionKeys[activeIndex];
       const activeSection = document.querySelector(`[data-section="${sectionKey}"]`);
       if (activeSection) {
         activeSection.classList.add('active');
@@ -112,4 +149,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 1000);
     }, 1500);
   }
+  
+  // Clean up animation on page unload
+  window.addEventListener('beforeunload', function() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+    }
+  });
 });
