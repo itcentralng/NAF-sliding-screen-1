@@ -40,8 +40,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const endPosition = targetSectionData.position;
   const totalDistance = endPosition - startPosition;
   
-  // Animation duration in milliseconds (3 seconds for smooth movement)
-  const animationDuration = 3000;
+  // Calculate animation duration: 7 seconds per section traversed
+  // For example: home to commandants = 3 sections = 21 seconds
+  // commanders to commandants = 1 section = 7 seconds
+  const sectionsToTraverse = Math.abs(totalDistance);
+  const animationDuration = sectionsToTraverse * 7000; // 7 seconds per section
   
   // Disable CSS transitions for manual control
   container.style.transition = 'none';
