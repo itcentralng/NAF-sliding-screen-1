@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const container = document.querySelector('.gradient-container');
   
-  // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants)
+  // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants, 4=end)
   const sectionMap = {
     'home': {
       position: 0,
@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     'commandants': {
       position: 3,
       name: 'Commandants NAFSFA'
+    },
+    'end': {
+      position: 4,
+      name: 'End'
     }
   };
   
@@ -76,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function setContainerPosition(position) {
-    // Each section is 25% wide, so we translate by position * -25%
-    const translateX = position * -25;
+    // Each section is 20% wide, so we translate by position * -20%
+    const translateX = position * -20;
     container.style.transform = `translateX(${translateX}%)`;
   }
   

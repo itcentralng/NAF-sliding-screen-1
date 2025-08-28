@@ -14,7 +14,7 @@ body {
 
 .gradient-container {
   position: relative;
-  width: 400%; /* 4 sections * 100% each */
+  width: 500%; /* 5 sections * 100% each */
   height: 100vh;
   display: flex;
   will-change: transform;
@@ -22,44 +22,49 @@ body {
 }
 
 .gradient-section {
-  width: 25%; /* Each section takes 25% of the container */
+  width: 20%; /* Each section takes 20% of the container (100% / 5 sections) */
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   flex-shrink: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Individual solid color backgrounds */
+/* Individual background images for each section */
 .home-gradient {
-  background: #667eea;
+  background-image: url('../img/gradient/start-sliding-1.png');
 }
 
 .chiefs-gradient {
-  background: #f5576c;
+  background-image: url('../img/gradient/chiefs-sliding-1.png');
 }
 
 .commanders-gradient {
-  background: #4facfe;
+  background-image: url('../img/gradient/commanders-sliding-1.png');
 }
 
 .commandants-gradient {
-  background: #43e97b;
+  background-image: url('../img/gradient/commandants-sliding-1.png');
+}
+
+.end-gradient {
+  background-image: url('../img/gradient/end-sliding-1.png');
 }
 
 
 
-.gradient-content h2 {
-  font-size: 3rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  margin: 0;
-  writing-mode: vertical-lr;
-  text-orientation: mixed;
-  transform: rotate(180deg);
+/* Enhanced gradient content animations - optimized for frame-by-frame */
+.gradient-content {
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+  /* Removed opacity transition to keep content static */
 }
 
 /* Enhanced section transitions */
@@ -85,16 +90,6 @@ body {
   opacity: 1;
 }
 
-/* Enhanced gradient content animations - optimized for frame-by-frame */
-.gradient-content {
-  text-align: center;
-  color: white;
-  z-index: 2;
-  opacity: 1;
-  transform: translateY(0);
-  /* Removed opacity transition to keep text static */
-}
-
 .gradient-section.active .gradient-content {
   opacity: 1;
   transform: translateY(0);
@@ -108,11 +103,7 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .gradient-content h2 {
-    font-size: 2rem;
-    letter-spacing: 2px;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
+  .gradient-section {
+    background-size: cover;
   }
 }
