@@ -78,9 +78,9 @@ void calibrateToStart() {
     Serial.println("Calibrating: Moving left to limit switch...");
     
     // Move left until limit switch is hit
-    digitalWrite(DIR_PIN, LOW); // Left direction
+    digitalWrite(DIR_PIN, HIGH); // Left direction
     
-    while (digitalRead(LIMIT_SWITCH_PIN) == LOW) {
+    while (digitalRead(LIMIT_SWITCH_PIN) == HIGH) {
         digitalWrite(STEP_PIN, HIGH);
         delayMicroseconds(stepDelay);
         digitalWrite(STEP_PIN, LOW);
@@ -90,7 +90,7 @@ void calibrateToStart() {
     Serial.println("Limit switch triggered! Moving 100 steps right to clear switch...");
     
     // Move 100 steps right to clear the limit switch
-    digitalWrite(DIR_PIN, HIGH); // Right direction
+    digitalWrite(DIR_PIN, LOW); // Right direction
     for (int i = 0; i < 100; i++) {
         digitalWrite(STEP_PIN, HIGH);
         delayMicroseconds(stepDelay);
@@ -124,12 +124,12 @@ void moveToPosition(int targetIndex) {
 
 void moveMotor(bool clockwise, int steps) {
     // Set direction
-    digitalWrite(DIR_PIN, clockwise ? HIGH : LOW);
+    digitalWrite(DIR_PIN, clockwise ? LOW : HIGH);
 
     // Step the motor
     for (int i = 0; i < steps; i++) {
         // Check limit switch (active HIGH)
-        if (digitalRead(LIMIT_SWITCH_PIN) == HIGH) {
+        if (digitalRead(LIMIT_SWITCH_PIN) == LOW) {
             Serial.println("Limit switch triggered! Stopping motor after " + String(i) + " steps.");
             
             // If we hit the limit switch, we're at position 0 (start)
@@ -137,7 +137,7 @@ void moveMotor(bool clockwise, int steps) {
             
             // Move 100 steps in the opposite direction to clear the switch
             Serial.println("Moving 100 steps right to clear switch...");
-            digitalWrite(DIR_PIN, HIGH); // Always move right when clearing limit switch
+            digitalWrite(DIR_PIN, LOW); // Always move right when clearing limit switch
             for (int j = 0; j < 100; j++) {
                 digitalWrite(STEP_PIN, HIGH);
                 delayMicroseconds(stepDelay);
