@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="../static/css/all.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/sections.css">
-  <link rel="stylesheet" href="css/broken-glass-transition.css">
   <title>NAFSFA Sections</title>
 </head>
 <body>
@@ -26,7 +25,7 @@
     <div class="section-container">
       <div class="section-list">
         <div class="section glass-background commandants">
-            <a href="commandants-nafsfa-updated.html">
+            <a href="commandants-nafsfa.html">
               <img src="img/unsplash_gNPb-LuL0SM.png" alt="">
               <h2>Commandants</h2>
               <p>Visionary leaders who have commanded the NAFSFA</p>
@@ -51,7 +50,6 @@
   </section>
   <script src="js/socket.io.min.js"></script>
   <script src="js/navigation-helper.js"></script>
-  <script src="js/broken-glass-transition.js"></script>
   <script>
 
 
@@ -93,7 +91,7 @@
         }, 200 + (index * 150));
       });
       
-      // Add click transition effects with broken glass
+      // Add click transition effects for subsections - direct navigation without glass transition
       sections.forEach(section => {
         const link = section.querySelector('a');
         if (link) {
@@ -110,37 +108,53 @@
               sectionName = 'directors';
             }
             
-            // Add loading state to clicked section
-            section.style.transform = 'scale(0.95)';
-            section.style.opacity = '1';
-            section.style.transition = 'all 0.3s ease';
-            
-            // Execute broken glass transition
-            const targetUrl = this.href;
-            if (typeof glassTransition !== 'undefined') {
-              glassTransition.execute(targetUrl, e);
-            } else {
-              // Fallback to direct navigation
-              setTimeout(() => {
-                window.location.href = targetUrl;
-              }, 400);
+            // Send section name to socket
+            if (sectionName) {
+              socket.emit('send_to_arduino', {
+                text: sectionName
+              });
+              console.log('Sent to Arduino:', sectionName);
             }
+            
+            // Add smooth click animation
+            section.style.transform = 'scale(0.95)';
+            section.style.opacity = '0.8';
+            section.style.transition = 'all 0.2s ease';
+            
+            // Add ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+              position: absolute;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.6);
+              transform: translate(-50%, -50%);
+              animation: ripple 0.6s linear;
+              pointer-events: none;
+              z-index: 10;
+            `;
+            
+            const rect = section.getBoundingClientRect();
+            ripple.style.left = (e.clientX - rect.left) + 'px';
+            ripple.style.top = (e.clientY - rect.top) + 'px';
+            section.appendChild(ripple);
+            
+            // Direct navigation to subsection without any transition effects
+            setTimeout(() => {
+              window.location.href = this.href;
+            }, 300);
           });
         }
       });
       
-      // Back button functionality
+      // Back button functionality - direct navigation to sections.html
       const backBtn = document.querySelector('.back-btn');
       if (backBtn) {
         backBtn.addEventListener('click', function(e) {
           e.preventDefault();
           
-          // Store current section before navigating back
-          if (typeof navState !== 'undefined') {
-            navState.storeCurrentSection('nafsfa');
-          }
-          
-          // Navigate back directly without gradient transition
+          // Navigate back directly without any transition effects
           window.location.href = this.href;
         });
       }

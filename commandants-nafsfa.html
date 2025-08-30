@@ -521,9 +521,9 @@
     <nav class="navbar glass-background">
       <div class="navbar-content">
         <div class="back-button">
-          <a href="sections.html" class="back-btn glass-background">
+          <a href="nafsfa-sections.html" class="back-btn glass-background">
             <i class="fas fa-arrow-left"></i>
-            <span>Back to Sections</span>
+            <span>Back to NAFSFA</span>
           </a>
         </div>
         <div class="navbar-title">
@@ -763,22 +763,16 @@
         });
       });
 
-      // Back button functionality
+      // Back button functionality - direct navigation to nafsfa-sections.html
       const backBtn = document.querySelector('.back-btn');
       if (backBtn) {
         backBtn.addEventListener('click', function(e) {
           e.preventDefault();
           
-          // Store current section before navigating back
-          navState.storeCurrentSection('commandants');
-          
-          // Navigate back with transition
+          // Navigate back directly without any transition effects
           window.location.href = this.href;
         });
       }
-      
-      // Store current section on page load
-      navState.storeCurrentSection('commandants');
     });
   </script>
 </body>
