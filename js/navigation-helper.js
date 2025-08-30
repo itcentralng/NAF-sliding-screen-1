@@ -6,7 +6,7 @@
 // Section positions mapping
 const SECTION_POSITIONS = {
   'welcome.html': { section: 'home', position: 0 },
-  'distinguished-personalities.html': { section: 'home', position: 0 },
+  'sections.html': { section: 'home', position: 0 },
   'chiefs-accounts-budget.html': { section: 'chiefs', position: 1 },
   'commanders-081-pag.html': { section: 'commanders', position: 2 },
   'nafsfa-sections.html': { section: 'nafsfa', position: 3 }
@@ -64,8 +64,8 @@ function getCurrentSection() {
 function navigateWithTransition(targetPage, targetSection) {
   const currentPage = window.location.pathname.split('/').pop();
   
-  // Check if we should use broken glass transition (welcome → distinguished personalities)
-  if (currentPage === 'welcome.html' && targetPage === 'distinguished-personalities.html') {
+  // Check if we should use broken glass transition (welcome → sections)
+  if (currentPage === 'welcome.html' && targetPage === 'sections.html') {
     // Use broken glass transition
     navigateWithBrokenGlass(targetPage);
     return;
@@ -182,8 +182,8 @@ function navigateWithSlide(targetPage, targetSection) {
   // Determine the "from" section based on context
   let fromSection = currentSectionData.section;
   
-  // If we're on distinguished personalities page, use the stored last section
-  if (window.location.pathname.includes('distinguished-personalities.html')) {
+  // If we're on sections page, use the stored last section
+  if (window.location.pathname.includes('sections.html')) {
     const lastSection = navState.getLastSection();
     if (lastSection && lastSection !== 'home') {
       fromSection = lastSection;
@@ -315,8 +315,8 @@ function enhanceBackButtons() {
             navState.storeCurrentSection(currentSectionData.section);
           }
           
-          // Navigate to distinguished personalities without clearing the stored section
-          window.location.href = 'distinguished-personalities.html';
+          // Navigate to sections without clearing the stored section
+          window.location.href = 'sections.html';
         }, 800);
       });
     });

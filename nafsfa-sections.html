@@ -13,13 +13,11 @@
   <header>
     <nav class="navbar glass-background">
       <div class="nav-header">
-        <button class="back-btn" onclick="navigateBack()">
-          <i class="fas fa-arrow-left"></i>
-          Back to Distinguished Personalities
-        </button>
-        <div class="nav-title">
-          <h2>NAFSFA Distinguished Personalities</h2>
-          <p>Explore the distinguished leaders of NAFSFA</p>
+        <div class="back-button">
+          <a href="sections.html" class="back-btn glass-background">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Sections</span>
+          </a>
         </div>
       </div>
     </nav>
@@ -55,18 +53,7 @@
   <script src="js/navigation-helper.js"></script>
   <script src="js/broken-glass-transition.js"></script>
   <script>
-    // Function to navigate back to distinguished personalities without transition
-    function navigateBack() {
-      // Add visual feedback to back button
-      const backBtn = document.querySelector('.back-btn');
-      backBtn.style.transform = 'translateX(-5px) scale(0.95)';
-      backBtn.style.transition = 'transform 0.3s ease';
-      
-      // Navigate directly back without any transition
-      setTimeout(() => {
-        window.location.href = 'distinguished-personalities.html';
-      }, 200);
-    }
+
 
     // Initialize socket connection
     const socket = io.connect("http://127.0.0.1:5550");
@@ -142,7 +129,28 @@
         }
       });
       
+      // Back button functionality
+      const backBtn = document.querySelector('.back-btn');
+      if (backBtn) {
+        backBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Store current section before navigating back
+          if (typeof navState !== 'undefined') {
+            navState.storeCurrentSection('sections');
+          }
+          
+          // Navigate back with transition
+          window.location.href = this.href;
+        });
+      }
+      
     });
+    
+    // Store current section on page load
+    if (typeof navState !== 'undefined') {
+      navState.storeCurrentSection('sections');
+    }
     
     // Add CSS for back button styling
     const backButtonStyle = document.createElement('style');
