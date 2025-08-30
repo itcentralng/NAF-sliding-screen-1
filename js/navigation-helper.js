@@ -9,7 +9,7 @@ const SECTION_POSITIONS = {
   'distinguished-personalities.html': { section: 'home', position: 0 },
   'chiefs-accounts-budget.html': { section: 'chiefs', position: 1 },
   'commanders-081-pag.html': { section: 'commanders', position: 2 },
-  'commandants-nafsfa.html': { section: 'commandants', position: 3 }
+  'nafsfa-section.html': { section: 'nafsfa', position: 3 }
 };
 
 // Navigation state management

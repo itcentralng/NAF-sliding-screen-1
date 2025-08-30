@@ -123,14 +123,6 @@
               sectionName = 'directors';
             }
             
-            // Send section name to socket
-            if (sectionName) {
-              socket.emit('send_to_arduino', {
-                text: sectionName
-              });
-              console.log('Sent to Arduino:', sectionName);
-            }
-            
             // Add loading state to clicked section
             section.style.transform = 'scale(0.95)';
             section.style.opacity = '1';
@@ -150,7 +142,6 @@
         }
       });
       
-      console.log('NAFSFA sections page loaded.');
     });
     
     // Add CSS for back button styling
