@@ -158,8 +158,8 @@
       });
       
       // Initialize navigation state when page loads
-      // Don't clear last section here - we want to preserve it for transitions
-      console.log('Distinguished personalities page loaded. Last section:', navState.getLastSection());
+      // Preserve the last section - don't clear it when sections.html loads
+      console.log('Sections page loaded. Last section preserved:', navState.getLastSection());
     });
     
     // Add ripple animation CSS

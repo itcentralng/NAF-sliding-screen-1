@@ -71,6 +71,19 @@ function navigateWithTransition(targetPage, targetSection) {
     return;
   }
   
+  // Check if navigating TO sections.html - should NOT use gradient transition
+  if (targetPage === 'sections.html') {
+    // Store current section for future transitions but navigate directly
+    const currentSectionData = getCurrentSection();
+    if (currentSectionData.section !== 'home') {
+      navState.storeCurrentSection(currentSectionData.section);
+    }
+    
+    // Navigate directly without gradient transition
+    window.location.href = targetPage;
+    return;
+  }
+  
   // Otherwise use gradient transition
   navigateWithSlide(targetPage, targetSection);
 }
@@ -240,7 +253,7 @@ function initializeSlidingNavigation() {
         targetSection = 'nafsfa';
       }
       
-      // Add click event listener for sliding transition
+      // Add click event listener for navigation
       link.addEventListener('click', function(e) {
         e.preventDefault();
         
@@ -274,50 +287,18 @@ function enhanceBackButtons() {
         this.style.transform = 'translateX(-5px) scale(0.95)';
         this.style.transition = 'transform 0.3s ease';
         
-        // Create sliding effect overlay
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, rgba(0,0,0,0.8), rgba(0,0,0,0.6));
-          z-index: 9999;
-          opacity: 0;
-          transition: opacity 0.5s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: white;
-          font-family: 'Cinzel', serif;
-        `;
+        // Store the current section before going back to sections.html
+        // This ensures the next transition remembers where we came from
+        const currentPage = window.location.pathname.split('/').pop();
+        const currentSectionData = SECTION_POSITIONS[currentPage];
+        if (currentSectionData && currentSectionData.section !== 'home') {
+          navState.storeCurrentSection(currentSectionData.section);
+        }
         
-        overlay.innerHTML = `
-          <div style="text-align: center;">
-            <i class="fas fa-arrow-left" style="font-size: 30px; margin-bottom: 20px; animation: slideLeft 1s infinite;"></i>
-            <br>Sliding back to sections...
-          </div>
-        `;
-        
-        document.body.appendChild(overlay);
-        
+        // Navigate directly to sections.html without gradient transition
         setTimeout(() => {
-          overlay.style.opacity = '1';
-        }, 50);
-        
-        setTimeout(() => {
-          // Store the current section before going back to distinguished personalities
-          // This ensures the next transition remembers where we came from
-          const currentPage = window.location.pathname.split('/').pop();
-          const currentSectionData = SECTION_POSITIONS[currentPage];
-          if (currentSectionData && currentSectionData.section !== 'home') {
-            navState.storeCurrentSection(currentSectionData.section);
-          }
-          
-          // Navigate to sections without clearing the stored section
           window.location.href = 'sections.html';
-        }, 800);
+        }, 300);
       });
     });
   });
