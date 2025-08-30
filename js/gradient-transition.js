@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const container = document.querySelector('.gradient-container');
   
-  // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=commandants, 4=end)
+  // Section mapping with positions (0=home, 1=chiefs, 2=commanders, 3=nafsfa, 4=end)
   const sectionMap = {
     'home': {
       position: 0,
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
       position: 2,
       name: 'Commanders 081 PAG'
     },
-    'commandants': {
+    'nafsfa': {
       position: 3,
-      name: 'Commandants NAFSFA'
+      name: 'NAFSFA'
     },
     'end': {
       position: 4,
