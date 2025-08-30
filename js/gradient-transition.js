@@ -44,11 +44,23 @@ document.addEventListener('DOMContentLoaded', function() {
   const endPosition = targetSectionData.position;
   const totalDistance = endPosition - startPosition;
   
-  // Calculate animation duration: 7 seconds per section traversed
-  // For example: home to commandants = 3 sections = 21 seconds
-  // commanders to commandants = 1 section = 7 seconds
-  const sectionsToTraverse = Math.abs(totalDistance);
-  const animationDuration = sectionsToTraverse * 4000; // 7 seconds per section
+  // Calculate animation duration based on specific section transitions
+  // Home to Chiefs: 3s, Chiefs to Commanders: 5s, Commanders to NAFSFA: 5s, NAFSFA to End: 3s
+  function calculateAnimationDuration(fromPos, toPos) {
+    const sectionDurations = [3000, 5000, 5000, 3000]; // durations in milliseconds
+    let totalDuration = 0;
+    
+    const start = Math.min(fromPos, toPos);
+    const end = Math.max(fromPos, toPos);
+    
+    for (let i = start; i < end; i++) {
+      totalDuration += sectionDurations[i];
+    }
+    
+    return totalDuration;
+  }
+  
+  const animationDuration = calculateAnimationDuration(startPosition, endPosition);
   
   // Disable CSS transitions for manual control
   container.style.transition = 'none';
