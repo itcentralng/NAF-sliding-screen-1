@@ -12,9 +12,9 @@
 int stepDelay = 1000; // microseconds between steps (adjust for speed)
 
 // Position array and motor control variables
-String positions[5] = {"start", "chiefs", "commanders", "commandants", "end"};
-const int MAX_STEPS = 10000; // Total steps from index 0 to index 4
-const int STEPS_PER_INDEX = MAX_STEPS / 4; // Steps between each index (10000/4 ≈ 2500)
+String positions[5] = {"home", "chiefs", "commanders", "nafsfa", "end"};
+// Steps between each adjacent position
+const int STEPS_BETWEEN_POSITIONS[4] = {2000, 2500, 2500, 2000}; // start->chiefs, chiefs->commanders, commanders->commandants, commandants->end
 
 int currentPosition = -1; // Current motor position index (-1 means unknown)
 bool isCalibrated = false; // Flag to track if motor has been calibrated to start position
@@ -109,8 +109,21 @@ void moveToPosition(int targetIndex) {
         return;
     }
     
-    int stepsToMove = abs(targetIndex - currentPosition) * STEPS_PER_INDEX;
+    // Calculate total steps needed by summing the steps between positions
+    int stepsToMove = 0;
     bool moveRight = targetIndex > currentPosition;
+    
+    if (moveRight) {
+        // Moving right (increasing index)
+        for (int i = currentPosition; i < targetIndex; i++) {
+            stepsToMove += STEPS_BETWEEN_POSITIONS[i];
+        }
+    } else {
+        // Moving left (decreasing index)
+        for (int i = currentPosition - 1; i >= targetIndex; i--) {
+            stepsToMove += STEPS_BETWEEN_POSITIONS[i];
+        }
+    }
     
     Serial.println("Moving from position '" + positions[currentPosition] + "' (index " + String(currentPosition) + 
                   ") to '" + positions[targetIndex] + "' (index " + String(targetIndex) + ")");
