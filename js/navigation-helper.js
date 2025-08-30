@@ -9,7 +9,7 @@ const SECTION_POSITIONS = {
   'distinguished-personalities.html': { section: 'home', position: 0 },
   'chiefs-accounts-budget.html': { section: 'chiefs', position: 1 },
   'commanders-081-pag.html': { section: 'commanders', position: 2 },
-  'nafsfa-section.html': { section: 'nafsfa', position: 3 }
+  'nafsfa-sections.html': { section: 'nafsfa', position: 3 }
 };
 
 // Navigation state management
@@ -195,8 +195,8 @@ function navigateWithSlide(targetPage, targetSection) {
     navState.storeCurrentSection(currentSectionData.section);
   }
   
-  // Special handling for home navigation - clear stored section
-  if (targetSection === 'home' || targetPage === 'welcome.html') {
+  // Special handling for home navigation - only clear stored section when going to welcome page
+  if (targetPage === 'welcome.html') {
     navState.clearLastSection();
   }
   
@@ -236,6 +236,8 @@ function initializeSlidingNavigation() {
         targetSection = 'commanders';
       } else if (href.includes('commandants-nafsfa.html')) {
         targetSection = 'commandants';
+      } else if (href.includes('nafsfa-sections.html')) {
+        targetSection = 'nafsfa';
       }
       
       // Add click event listener for sliding transition
@@ -305,7 +307,16 @@ function enhanceBackButtons() {
         }, 50);
         
         setTimeout(() => {
-          navigateWithTransition('distinguished-personalities.html', 'home');
+          // Store the current section before going back to distinguished personalities
+          // This ensures the next transition remembers where we came from
+          const currentPage = window.location.pathname.split('/').pop();
+          const currentSectionData = SECTION_POSITIONS[currentPage];
+          if (currentSectionData && currentSectionData.section !== 'home') {
+            navState.storeCurrentSection(currentSectionData.section);
+          }
+          
+          // Navigate to distinguished personalities without clearing the stored section
+          window.location.href = 'distinguished-personalities.html';
         }, 800);
       });
     });
