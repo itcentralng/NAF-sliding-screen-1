@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/profiles.css">
+  <link rel="stylesheet" href="webfonts/fa-solid-900.woff2">
+  <link rel="stylesheet" href="css/all.css">
+  <title>Directors NAFSFA - NAF History</title>
+  <style>
+    :root {
+      --primary-gold: #D4AF37;
+      --secondary-gold: #B8860B;
+      --text-light: rgba(255, 255, 255, 0.95);
+      --text-muted: rgba(255, 255, 255, 0.7);
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --shadow-strong: 0 15px 45px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Enhanced Navbar Styling */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .navbar {
+      width: 100%;
+      padding: 1rem 2rem;
+      color: #fff;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      gap: 2rem;
+    }
+
+    .back-button {
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .back-btn:hover::before {
+      left: 100%;
+    }
+
+    .back-btn:hover {
+      transform: translateX(-3px) translateY(-1px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+      border-color: var(--primary-gold);
+      color: #fff;
+    }
+
+    .back-btn i {
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-btn:hover i {
+      transform: translateX(-3px);
+    }
+
+    .navbar-title {
+      flex-grow: 1;
+      text-align: right;
+    }
+
+    .navbar-title h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      margin-bottom: 0.25rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .navbar-title p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 400;
+    }
+
+    .directors-container {
+      min-height: 100vh;
+      padding: 6rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .directors-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .directors-header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .directors-header p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .directors-main {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .directors-sidebar {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-soft);
+      height: fit-content;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .sidebar-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .sidebar-header h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--primary-gold);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-header span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .directors-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .director-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .director-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--glass-border);
+      transform: translateX(5px);
+    }
+
+    .director-item.active {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.1));
+      border-color: var(--primary-gold);
+      transform: translateX(10px);
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .director-item .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--glass-border);
+      transition: border-color 0.3s ease;
+    }
+
+    .director-item.active .avatar {
+      border-color: var(--primary-gold);
+    }
+
+    .director-item .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .director-item .info h4 {
+      color: var(--text-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .director-item .info span {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .profile-display {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow-soft);
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-hero {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+    }
+
+    .profile-image {
+      flex: 0 0 200px;
+      height: 250px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow-strong);
+      border: 3px solid var(--primary-gold);
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .profile-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.1) 100%);
+      pointer-events: none;
+    }
+
+    .profile-details {
+      flex: 1;
+      padding-top: 1rem;
+    }
+
+    .profile-name {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      margin-bottom: 0.5rem;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-title {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      flex: 1;
+    }
+
+    .stat-value {
+      font-family: 'Cinzel', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary-gold);
+      display: block;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    .profile-biography {
+      flex: 1;
+    }
+
+    .biography-title {
+      font-family: 'Cinzel', serif;
+      color: var(--primary-gold);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .biography-text {
+      color: var(--text-light);
+      line-height: 1.8;
+      font-size: 1rem;
+      text-align: justify;
+    }
+
+    .loading-state {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--glass-border);
+      border-top: 3px solid var(--primary-gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .navbar {
+        padding: 0.75rem 1.5rem;
+      }
+
+      .navbar-content {
+        gap: 1.5rem;
+      }
+
+      .directors-container {
+        padding: 5.5rem 1.5rem 2rem;
+      }
+
+      .directors-main {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .directors-sidebar {
+        position: static;
+      }
+
+      .directors-list {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 0.5rem;
+      }
+
+      .director-item {
+        flex: 0 0 250px;
+        margin-bottom: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0.5rem 1rem;
+      }
+
+      .navbar-content {
+        gap: 1rem;
+      }
+
+      .navbar-title {
+        text-align: center;
+      }
+
+      .navbar-title h2 {
+        font-size: 1.4rem;
+      }
+
+      .back-btn span {
+        display: none;
+      }
+
+      .back-btn {
+        padding: 0.75rem;
+        min-width: 44px;
+      }
+
+      .directors-container {
+        padding: 5rem 1rem 2rem;
+      }
+
+      .directors-header h1 {
+        font-size: 2rem;
+      }
+
+      .profile-hero {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      .profile-image {
+        flex: none;
+        width: 200px;
+      }
+
+      .profile-name {
+        font-size: 1.8rem;
+        text-align: center;
+      }
+
+      .profile-stats {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar glass-background">
+      <div class="navbar-content">
+        <div class="back-button">
+          <a href="#" onclick="history.back()" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back</span>
+          </a>
+        </div>
+        <div class="navbar-title">
+          <h2>Directors</h2>
+          <p>Administrative Excellence Leaders</p>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="directors-container">
+    <div class="directors-header">
+      <h1>Directors of NAFSFA</h1>
+      <p>Administrative leaders who have guided NAFSFA's operations through strategic planning, resource management, and organizational excellence.</p>
+    </div>
+
+    <div class="directors-main">
+      <!-- Sidebar with directors list -->
+      <aside class="directors-sidebar">
+        <div class="sidebar-header">
+          <h3>Select Director</h3>
+          <span>Click to view profile</span>
+        </div>
+        
+        <div class="directors-list">
+          <div class="director-item active" onclick="displayProfile('williams')">
+            <div class="avatar">
+              <img src="img/avatar-military.png" alt="Williams">
+            </div>
+            <div class="info">
+              <h4>Squadron Leader Williams</h4>
+              <span>Director (Example)</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main profile display -->
+      <section class="profile-display">
+        <div class="loading-state" id="loadingState">
+          <div class="loading-spinner"></div>
+          <p style="color: var(--text-muted);">Loading profile...</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="js/swiper-bundle.min.js"></script>
+  <script src="js/navigation-helper.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    // Director profiles data
+    const directorsData = {
+      williams: {
+        name: "Squadron Leader Williams",
+        title: "Director (Example)",
+        yearsServed: "2019-2022",
+        departmentsManaged: "5",
+        policiesImplemented: "20+",
+        biography: "Squadron Leader Williams served as a distinguished Director at the Nigerian Air Force School of Finance and Accounts (NAFSFA), bringing exceptional administrative acumen and strategic vision to the institution. With extensive experience in organizational management and policy development, he was instrumental in streamlining NAFSFA's administrative processes and enhancing operational efficiency. During his tenure, Squadron Leader Williams implemented comprehensive administrative reforms that improved workflow efficiency across all departments. He established robust quality assurance mechanisms for administrative processes and introduced performance measurement systems that significantly enhanced accountability and transparency. His leadership in resource management was exemplary, ensuring optimal allocation of human and material resources while maintaining cost-effectiveness. He spearheaded the digitization of administrative records, transitioning from manual systems to computerized databases that improved data accessibility and security. Squadron Leader Williams also played a crucial role in facilities management, overseeing infrastructure improvements and ensuring a conducive environment for both staff and students. His collaborative approach to leadership fostered strong interdepartmental coordination and improved communication channels throughout the institution. Under his administration, staff welfare programs were enhanced, leading to improved morale and productivity. His strategic planning initiatives positioned NAFSFA for sustained growth and adaptation to evolving operational requirements within the Nigerian Air Force structure."
+      }
+    };
+
+    // Profile display functionality
+    function displayProfile(directorKey) {
+      const director = directorsData[directorKey];
+      const profileDisplay = document.querySelector('.profile-display');
+      const loadingState = document.getElementById('loadingState');
+      
+      // Update active state in sidebar
+      document.querySelectorAll('.director-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.currentTarget.classList.add('active');
+      
+      // Show loading state
+      if (loadingState) {
+        loadingState.style.display = 'flex';
+      }
+      
+      setTimeout(() => {
+        profileDisplay.innerHTML = `
+          <div class="profile-hero fade-in">
+            <div class="profile-image">
+              <img src="img/avatar-military.png" alt="${director.name}">
+            </div>
+            <div class="profile-details">
+              <h1 class="profile-name">${director.name}</h1>
+              <p class="profile-title">${director.title}</p>
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <span class="stat-value">${director.yearsServed}</span>
+                  <div class="stat-label">Years Served</div>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">${director.departmentsManaged}</span>
+                  <div class="stat-label">Departments Managed</div>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-value">${director.policiesImplemented}</span>
+                  <div class="stat-label">Policies Implemented</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="profile-biography fade-in">
+            <h3 class="biography-title">
+              <i class="fas fa-cogs"></i>
+              Administrative Leadership & Achievements
+            </h3>
+            <p class="biography-text">${director.biography}</p>
+          </div>
+        `;
+      }, 600);
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      navState.storeCurrentSection('directors');
+      
+      // Auto-load the first (example) director profile
+      setTimeout(() => {
+        displayProfile('williams');
+      }, 800);
+    });
+  </script>
+</body>
+</html>

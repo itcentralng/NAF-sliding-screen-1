@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/css/all.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <title>NAFSFA Sections</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar glass-background">
+      <h2>NAFSFA Distinguished Personalities</h2>
+      <p>Explore the distinguished leaders of NAFSFA</p>
+    </nav>
+  </header>
+  <section>
+    <div class="section-container">
+      <div class="section-list">
+        <div class="section glass-background home">
+            <a href="gradient-transition.html?section=home&page=welcome.html">
+              <img src="img/Welcomescreen.png" alt="">
+              <h2>Home</h2>
+              <p>Return to home to start afresh</p>
+            </a>
+          </div>
+        <div class="section glass-background commandants">
+            <a href="gradient-transition.html?section=commandants&page=commandants-nafsfa-updated.html">
+              <img src="img/unsplash_gNPb-LuL0SM.png" alt="">
+              <h2>Commandants</h2>
+              <p>Visionary leaders who have commanded the NAFSFA</p>
+            </a>
+          </div>
+          <div class="section glass-background instructors">
+            <a href="gradient-transition.html?section=instructors&page=chief-instructors-nafsfa.html">
+              <img src="img/unsplash_gNPb-LuL0SM (1).png" alt="">
+              <h2>Chief Instructors</h2>
+              <p>Expert educators who have shaped NAFSFA's academic excellence</p>
+            </a>
+          </div>
+          <div class="section glass-background directors">
+            <a href="gradient-transition.html?section=directors&page=directors-nafsfa.html">
+              <img src="img/unsplash_gNPb-LuL0SM (2).png" alt="">
+              <h2>Directors</h2>
+              <p>Administrative leaders who have guided NAFSFA's operations</p>
+            </a>
+          </div>
+      </div>
+    </div>
+  </section>
+  <script src="js/socket.io.min.js"></script>
+  <script src="js/navigation-helper.js"></script>
+  <script>
+    // Initialize socket connection
+    const socket = io.connect("http://127.0.0.1:5550");
+
+    // Socket event listeners
+    socket.on('connect', function() {
+      console.log('Connected to server');
+    });
+    
+    socket.on('arduino_response', function(data) {
+      console.log('Arduino response:', data);
+    });
+    
+    socket.on('disconnect', function() {
+      console.log('Disconnected from server');
+    });
+    
+    // Page fade-in effect
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.6s ease-in';
+      
+      setTimeout(() => {
+        document.body.style.opacity = '1';
+      }, 100);
+      
+      // Add staggered animation to section cards
+      const sections = document.querySelectorAll('.section');
+      sections.forEach((section, index) => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+          section.style.opacity = '0.7';
+          section.style.transform = 'translateY(0)';
+        }, 200 + (index * 150));
+      });
+      
+      // Add click transition effects
+      sections.forEach(section => {
+        const link = section.querySelector('a');
+        if (link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get section short name based on class
+            let sectionName = '';
+            if (section.classList.contains('home')) {
+              sectionName = 'home';
+            } else if (section.classList.contains('commandants')) {
+              sectionName = 'commandants';
+            } else if (section.classList.contains('instructors')) {
+              sectionName = 'instructors';
+            } else if (section.classList.contains('directors')) {
+              sectionName = 'directors';
+            }
+            
+            // Send section name to socket
+            if (sectionName) {
+              socket.emit('send_to_arduino', {
+                text: sectionName
+              });
+              console.log('Sent to Arduino:', sectionName);
+            }
+            
+            // Add loading state to clicked section
+            section.style.transform = 'scale(0.95)';
+            section.style.opacity = '1';
+            section.style.transition = 'all 0.3s ease';
+            
+            // Add ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+              position: absolute;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: rgba(255, 255, 255, 0.6);
+              transform: translate(-50%, -50%);
+              animation: ripple 0.6s linear;
+              pointer-events: none;
+              z-index: 10;
+            `;
+            
+            const rect = section.getBoundingClientRect();
+            ripple.style.left = (e.clientX - rect.left) + 'px';
+            ripple.style.top = (e.clientY - rect.top) + 'px';
+            section.appendChild(ripple);
+            
+            // Navigate with transition - use the stored last section for "from"
+            setTimeout(() => {
+              const targetPage = this.href.split('page=')[1] || this.href;
+              const targetSection = sectionName;
+              
+              // Use the navigation helper to properly handle transitions
+              if (typeof navigateWithSlide === 'function') {
+                navigateWithSlide(targetPage, targetSection);
+              } else {
+                window.location.href = this.href;
+              }
+            }, 400);
+          });
+        }
+      });
+      
+      // Initialize navigation state when page loads
+      // Don't clear last section here - we want to preserve it for transitions
+      console.log('NAFSFA sections page loaded. Last section:', navState.getLastSection());
+    });
+    
+    // Add ripple animation CSS
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+      @keyframes ripple {
+        to {
+          transform: translate(-50%, -50%) scale(20);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(rippleStyle);
+  </script>
+</body>
+</html>
