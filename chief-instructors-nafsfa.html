@@ -543,13 +543,33 @@
         </div>
         
         <div class="instructors-list">
-          <div class="instructor-item active" onclick="displayProfile('thompson')">
+          <div class="instructor-item active" onclick="displayProfile('yakubu')">
             <div class="avatar">
-              <img src="img/avatar-military.png" alt="Thompson">
+              <img src="img/instructors/ci-1.jpg" alt="Air Cdre I Yakubu">
             </div>
             <div class="info">
-              <h4>Wing Commander Thompson</h4>
-              <span>Chief Instructor (Example)</span>
+              <h4>Air Cdre I Yakubu</h4>
+              <span>Chief Instructor</span>
+            </div>
+          </div>
+          
+          <div class="instructor-item" onclick="displayProfile('utoruwei')">
+            <div class="avatar">
+              <img src="img/instructors/ci-2.jpg" alt="Wing Commander Bebai Sampson Utoruwei">
+            </div>
+            <div class="info">
+              <h4>Wg Cdr Bebai Sampson Utoruwei</h4>
+              <span>Chief Instructor</span>
+            </div>
+          </div>
+          
+          <div class="instructor-item" onclick="displayProfile('ahmed')">
+            <div class="avatar">
+              <img src="img/instructors/ci-3.jpg" alt="Wing Commander AU Ahmed">
+            </div>
+            <div class="info">
+              <h4>Wg Cdr AU Ahmed</h4>
+              <span>Chief Instructor</span>
             </div>
           </div>
         </div>
@@ -571,13 +591,29 @@
   <script>
     // Chief Instructor profiles data
     const instructorsData = {
-      thompson: {
-        name: "Wing Commander Thompson",
-        title: "Chief Instructor (Example)",
-        yearsServed: "2020-2023",
-        coursesLed: "15+",
-        studentsGraduated: "500+",
-        biography: "Wing Commander Thompson served as an exemplary Chief Instructor at the Nigerian Air Force School of Finance and Accounts (NAFSFA). With a distinguished academic background and extensive practical experience in financial management, he brought innovative teaching methodologies to the institution. During his tenure, he revolutionized the curriculum delivery system, incorporating modern pedagogical approaches that enhanced student engagement and learning outcomes. His leadership in academic affairs was marked by the introduction of practical case studies drawn from real NAF financial operations, bridging the gap between theoretical knowledge and practical application. Wing Commander Thompson was instrumental in establishing partnerships with civilian financial institutions for exchange programs and guest lectures. He also pioneered the use of digital learning platforms within NAFSFA, ensuring that instruction remained current with technological advances. His dedication to student welfare was evident in his open-door policy and mentorship programs that provided guidance beyond the classroom. Under his guidance, student performance metrics improved significantly, and the pass rates for certification examinations reached new heights. His contributions to curriculum development and instructional excellence continue to influence NAFSFA's academic standards today."
+      yakubu: {
+        name: "Air Cdre I Yakubu",
+        title: "Chief Instructor",
+        yearsServed: "Various Periods",
+        coursesLed: "Multiple Courses",
+        studentsGraduated: "Numerous Officers",
+        biography: "Air Commodore I. Yakubu has served with distinction as a Chief Instructor at the Nigerian Air Force School of Finance and Accounts (NAFSFA). His extensive experience and expertise in financial management and military operations have contributed significantly to the academic excellence of the institution. Throughout his career, he has demonstrated exceptional leadership qualities and has been instrumental in shaping the financial education of numerous NAF officers. His commitment to professional development and academic excellence continues to influence the standards at NAFSFA."
+      },
+      utoruwei: {
+        name: "Wg Cdr Bebai Sampson Utoruwei",
+        title: "Chief Instructor",
+        yearsServed: "Feb 2015 - Mar 2016",
+        coursesLed: "Finance & Accounting",
+        studentsGraduated: "Multiple Batches",
+        biography: "Wing Commander Bebai Sampson Utoruwei was born into the family of High Chief and Mrs Utoruwei Sampson on 12 October 1975 at Olugbobiri Kingdom in Southern Ijaw Local Government Area of Bayelsa State. He completed his Primary and Secondary education in 1988 and 1994 respectively, then proceeded to University of Abuja where he studied Accounting and graduated in 2002. In June 2004, he was commissioned as Flying Officer after training at the Nigerian Defense Academy as a member of Direct Regular Course 15. He holds a Bachelor of Science Degree in Accounting from University of Abuja (2002), Master of Science Degree in Business Administration from Nasarawa State University Keffi, and is a Fellow Certified National Accountant from the Nigerian College of Accountancy Jos (2008) and Associate Chartered Economist from the Institute of Chartered Economist of Nigeria (2007). He served as Chief Instructor at NAFSFA from February 2015 to March 2016, where he contributed significantly to the academic development of finance officers. His extensive career includes various finance positions across NAF formations, including Finance Officer NAF Foundation Limited, Group Finance Officer at multiple bases, Command Pay Master, and currently serves as Deputy Director Finance at Nigerian Defence Academy. His hobbies include taking long distance walks, reading, listening to Gospel music and making reasonable friends."
+      },
+      ahmed: {
+        name: "Wg Cdr AU Ahmed",
+        title: "Chief Instructor",
+        yearsServed: "Various Periods",
+        coursesLed: "Finance & Accounting",
+        studentsGraduated: "Multiple Batches",
+        biography: "Wing Commander Aliyu Umar Ahmed (NAF/3137) was born on 13 April 1984 in Kaduna State and hails from Gwaram Local Government of Jigawa State. He attended primary school in Port Harcourt, River State and Air Force Military School, Jos for secondary education as a member of 56 Regular Course of the Nigerian Defence Academy. He holds a Bachelor of Science Degree in Economics and Accounting from the Nigerian Defence Academy, a Post Graduate Degree in Logistics and Supply Chain Management from Air Force Institute of Technology (AFIT), Kaduna, and a Masters in Leadership and Diplomatic Studies from the Nigerian Defence Academy Post Graduate School, Kaduna. He has attended numerous courses including Air Borne Course, Initial Supply Officers Course, Logistics and Supply Chain Management Course, Initial Finance Officers Course at Badagry, Junior and Senior Staff Courses at AFCSC Jaji, and Professional Accounting Course in Coimbatore, India. His career appointments include Projects Officer in PIMT at HQ NAF Abuja, Group Finance Officer at various bases, Chief Instructor at NAFSFA Badagry, Command Finance Officer at HQ Logistics Command Ikeja and HQ Air Training Command Kaduna, and currently Assistant Director of Budget at Nigerian Defence Academy. He is a Certified National Accountant with FSS and Psc awards, happily married with 5 children. His hobbies include watching football, reading, sharing jokes and impacting knowledge."
       }
     };
 
@@ -586,6 +622,13 @@
       const instructor = instructorsData[instructorKey];
       const profileDisplay = document.querySelector('.profile-display');
       const loadingState = document.getElementById('loadingState');
+      
+      // Map instructor keys to image files
+      const imageMap = {
+        'yakubu': 'img/instructors/ci-1.jpg',
+        'utoruwei': 'img/instructors/ci-2.jpg',
+        'ahmed': 'img/instructors/ci-3.jpg'
+      };
       
       // Update active state in sidebar
       document.querySelectorAll('.instructor-item').forEach(item => {
@@ -602,7 +645,7 @@
         profileDisplay.innerHTML = `
           <div class="profile-hero fade-in">
             <div class="profile-image">
-              <img src="img/avatar-military.png" alt="${instructor.name}">
+              <img src="${imageMap[instructorKey]}" alt="${instructor.name}">
             </div>
             <div class="profile-details">
               <h1 class="profile-name">${instructor.name}</h1>
@@ -638,9 +681,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       navState.storeCurrentSection('instructors');
       
-      // Auto-load the first (example) instructor profile
+      // Auto-load the first instructor profile
       setTimeout(() => {
-        displayProfile('thompson');
+        displayProfile('yakubu');
       }, 800);
     });
   </script>
