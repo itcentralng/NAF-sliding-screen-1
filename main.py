@@ -83,7 +83,7 @@ def main():
 if __name__ == "__main__":
     try:
         # Start the Flask app with WebSocket support
-        socketio.run(app, host="0.0.0.0", port=5550, debug=True)
+        socketio.run(app, host="0.0.0.0", port=5550, debug=False)
     except KeyboardInterrupt:
         print("Shutting down...")
     finally:
