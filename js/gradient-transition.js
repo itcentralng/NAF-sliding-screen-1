@@ -44,10 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const endPosition = targetSectionData.position;
   const totalDistance = endPosition - startPosition;
   
-  // Calculate animation duration based on specific section transitions
-  // Home to Chiefs: 3s, Chiefs to Commanders: 5s, Commanders to NAFSFA: 5s, NAFSFA to End: 3s
+  // Calculate animation duration based on motor movement times
+  // Motor step counts: Home-Chiefs: 2000, Chiefs-Commanders: 2500, Commanders-NAFSFA: 2500, NAFSFA-End: 2000
+  // With 1ms per step: Home to Chiefs: 2s, Chiefs to Commanders: 2.5s, Commanders to NAFSFA: 2.5s, NAFSFA to End: 2s
   function calculateAnimationDuration(fromPos, toPos) {
-    const sectionDurations = [3000, 5000, 5000, 3000]; // durations in milliseconds
+    const sectionDurations = [2000, 2500, 2500, 2000]; // durations in milliseconds to match motor timing
     let totalDuration = 0;
     
     const start = Math.min(fromPos, toPos);
