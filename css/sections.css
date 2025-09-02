@@ -114,7 +114,8 @@ header {
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 120px); /* Subtract approximate header height */
-  padding: 20px 0;
+  padding-top: 0; /* Remove top padding to get closer to center */
+  transform: translateY(-10vh); /* Move up 10% of viewport height from center */
 }
 
 .section-list {
@@ -124,19 +125,20 @@ header {
   justify-content: center;
   align-items: stretch;
   gap: 1.5rem;
-  padding: 50px;
+  padding: 20px; /* Reduced from 50px */
 }
 
 @media(max-width: 47rem) {
   .section-container {
     min-height: calc(100vh - 100px); /* Smaller header on mobile */
-    padding: 10px 0;
+    padding-top: 0; /* Remove padding */
+    transform: translateY(-8vh); /* Less movement on mobile screens */
   }
   
   .section-list {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 280px);
-    padding: 0 20px;
+    padding: 10px 20px; /* Reduced vertical padding */
     gap: 1rem;
   }
 }
