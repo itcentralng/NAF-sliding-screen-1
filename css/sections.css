@@ -109,6 +109,14 @@ header {
   font-family: 'cinzel', sans-serif;
 }
 
+.section-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px); /* Subtract approximate header height */
+  padding: 20px 0;
+}
+
 .section-list {
   display: grid;
   grid-template-columns: repeat(2, 400px);
@@ -120,6 +128,11 @@ header {
 }
 
 @media(max-width: 47rem) {
+  .section-container {
+    min-height: calc(100vh - 100px); /* Smaller header on mobile */
+    padding: 10px 0;
+  }
+  
   .section-list {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 280px);
