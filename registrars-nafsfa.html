@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/profiles.css">
   <link rel="stylesheet" href="webfonts/fa-solid-900.woff2">
   <link rel="stylesheet" href="css/all.css">
-  <title>Directors NAFSFA - NAF History</title>
+  <title>Registrars NAFSFA - NAF History</title>
   <style>
     :root {
       --primary-gold: #D4AF37;
@@ -135,7 +135,7 @@
       font-weight: 400;
     }
 
-    .directors-container {
+    .registrars-container {
       min-height: 100vh;
       padding: 6rem 2rem 2rem;
       display: flex;
@@ -143,12 +143,12 @@
       gap: 2rem;
     }
 
-    .directors-header {
+    .registrars-header {
       text-align: center;
       margin-bottom: 2rem;
     }
 
-    .directors-header h1 {
+    .registrars-header h1 {
       font-family: 'Cinzel', serif;
       font-size: 2.5rem;
       font-weight: 600;
@@ -158,7 +158,7 @@
       letter-spacing: 2px;
     }
 
-    .directors-header p {
+    .registrars-header p {
       font-size: 1.1rem;
       color: var(--text-muted);
       max-width: 600px;
@@ -166,7 +166,7 @@
       line-height: 1.6;
     }
 
-    .directors-main {
+    .registrars-main {
       display: grid;
       grid-template-columns: 350px 1fr;
       gap: 2rem;
@@ -175,7 +175,7 @@
       width: 100%;
     }
 
-    .directors-sidebar {
+    .registrars-sidebar {
       background: var(--glass-bg);
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
@@ -206,13 +206,13 @@
       font-size: 0.9rem;
     }
 
-    .directors-list {
+    .registrars-list {
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
     }
 
-    .director-item {
+    .registrar-item {
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -224,20 +224,20 @@
       border: 1px solid transparent;
     }
 
-    .director-item:hover {
+    .registrar-item:hover {
       background: rgba(255, 255, 255, 0.05);
       border-color: var(--glass-border);
       transform: translateX(5px);
     }
 
-    .director-item.active {
+    .registrar-item.active {
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.1));
       border-color: var(--primary-gold);
       transform: translateX(10px);
       box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
     }
 
-    .director-item .avatar {
+    .registrar-item .avatar {
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -246,17 +246,17 @@
       transition: border-color 0.3s ease;
     }
 
-    .director-item.active .avatar {
+    .registrar-item.active .avatar {
       border-color: var(--primary-gold);
     }
 
-    .director-item .avatar img {
+    .registrar-item .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .director-item .info h4 {
+    .registrar-item .info h4 {
       color: var(--text-light);
       font-family: 'Cinzel', serif;
       font-size: 0.95rem;
@@ -264,7 +264,7 @@
       margin-bottom: 0.2rem;
     }
 
-    .director-item .info span {
+    .registrar-item .info span {
       color: var(--text-muted);
       font-size: 0.8rem;
     }
@@ -428,27 +428,27 @@
         gap: 1.5rem;
       }
 
-      .directors-container {
+      .registrars-container {
         padding: 5.5rem 1.5rem 2rem;
       }
 
-      .directors-main {
+      .registrars-main {
         grid-template-columns: 1fr;
         gap: 1.5rem;
       }
 
-      .directors-sidebar {
+      .registrars-sidebar {
         position: static;
       }
 
-      .directors-list {
+      .registrars-list {
         flex-direction: row;
         overflow-x: auto;
         gap: 1rem;
         padding-bottom: 0.5rem;
       }
 
-      .director-item {
+      .registrar-item {
         flex: 0 0 250px;
         margin-bottom: 0;
       }
@@ -480,11 +480,11 @@
         min-width: 44px;
       }
 
-      .directors-container {
+      .registrars-container {
         padding: 5rem 1rem 2rem;
       }
 
-      .directors-header h1 {
+      .registrars-header h1 {
         font-size: 2rem;
       }
 
@@ -521,35 +521,35 @@
           </a>
         </div>
         <div class="navbar-title">
-          <h2>Directors</h2>
-          <p>Administrative Excellence Leaders</p>
+          <h2>Registrars</h2>
+          <p>Academic Records Excellence Leaders</p>
         </div>
       </div>
     </nav>
   </header>
 
-  <main class="directors-container">
-    <div class="directors-header">
-      <h1>Directors of NAFSFA</h1>
-      <p>Administrative leaders who have guided NAFSFA's operations through strategic planning, resource management, and organizational excellence.</p>
+  <main class="registrars-container">
+    <div class="registrars-header">
+      <h1>Registrars of NAFSFA</h1>
+      <p>Academic record keepers who have maintained the integrity of student records, managed enrollment processes, and ensured compliance with educational standards at NAFSFA.</p>
     </div>
 
-    <div class="directors-main">
-      <!-- Sidebar with directors list -->
-      <aside class="directors-sidebar">
+    <div class="registrars-main">
+      <!-- Sidebar with registrars list -->
+      <aside class="registrars-sidebar">
         <div class="sidebar-header">
-          <h3>Select Director</h3>
+          <h3>Select Registrar</h3>
           <span>Click to view profile</span>
         </div>
         
-        <div class="directors-list">
-          <div class="director-item active" onclick="displayProfile('williams')">
+        <div class="registrars-list">
+          <div class="registrar-item active" onclick="displayProfile('johnson')">
             <div class="avatar">
-              <img src="img/avatar-military.png" alt="Williams">
+              <img src="img/avatar-military.png" alt="Johnson">
             </div>
             <div class="info">
-              <h4>Squadron Leader Williams</h4>
-              <span>Director (Example)</span>
+              <h4>Flight Lieutenant Johnson</h4>
+              <span>Registrar (Example)</span>
             </div>
           </div>
         </div>
@@ -569,26 +569,26 @@
   <script src="js/navigation-helper.js"></script>
   <script src="js/script.js"></script>
   <script>
-    // Director profiles data
-    const directorsData = {
-      williams: {
-        name: "Squadron Leader Williams",
-        title: "Director (Example)",
-        yearsServed: "2019-2022",
-        departmentsManaged: "5",
-        policiesImplemented: "20+",
-        biography: "Squadron Leader Williams served as a distinguished Director at the Nigerian Air Force School of Finance and Accounts (NAFSFA), bringing exceptional administrative acumen and strategic vision to the institution. With extensive experience in organizational management and policy development, he was instrumental in streamlining NAFSFA's administrative processes and enhancing operational efficiency. During his tenure, Squadron Leader Williams implemented comprehensive administrative reforms that improved workflow efficiency across all departments. He established robust quality assurance mechanisms for administrative processes and introduced performance measurement systems that significantly enhanced accountability and transparency. His leadership in resource management was exemplary, ensuring optimal allocation of human and material resources while maintaining cost-effectiveness. He spearheaded the digitization of administrative records, transitioning from manual systems to computerized databases that improved data accessibility and security. Squadron Leader Williams also played a crucial role in facilities management, overseeing infrastructure improvements and ensuring a conducive environment for both staff and students. His collaborative approach to leadership fostered strong interdepartmental coordination and improved communication channels throughout the institution. Under his administration, staff welfare programs were enhanced, leading to improved morale and productivity. His strategic planning initiatives positioned NAFSFA for sustained growth and adaptation to evolving operational requirements within the Nigerian Air Force structure."
+    // Registrar profiles data
+    const registrarsData = {
+      johnson: {
+        name: "Flight Lieutenant Johnson",
+        title: "Registrar (Example)",
+        yearsServed: "2020-2023",
+        studentsManaged: "2,000+",
+        recordsDigitized: "15,000+",
+        biography: "Flight Lieutenant Johnson served as a meticulous and dedicated Registrar at the Nigerian Air Force School of Finance and Accounts (NAFSFA), bringing exceptional organizational skills and attention to detail to the management of academic records and student services. With extensive experience in educational administration and records management, he was instrumental in modernizing NAFSFA's student information systems and enhancing the efficiency of academic operations. During his tenure, Flight Lieutenant Johnson implemented comprehensive digital transformation initiatives that revolutionized how student records were maintained and accessed. He oversaw the complete digitization of legacy student files, ensuring data integrity while improving accessibility for both staff and students. His leadership in developing standardized procedures for enrollment, grade recording, and transcript processing significantly reduced processing times and eliminated errors. He established robust verification systems for academic credentials and implemented quality control measures that enhanced the credibility of NAFSFA certificates and transcripts. Flight Lieutenant Johnson also played a crucial role in curriculum compliance monitoring, ensuring that all academic programs met the required standards set by relevant educational authorities. His expertise in data management and privacy protection ensured that sensitive student information was handled with the utmost confidentiality and security. Under his administration, student services were enhanced through the introduction of online portals for grade checking, course registration, and transcript requests. His collaborative approach with faculty and administrative staff improved communication and streamlined academic processes. Flight Lieutenant Johnson's commitment to excellence in record keeping and student services positioned NAFSFA as a model institution for academic administration within the Nigerian Air Force educational system."
       }
     };
 
     // Profile display functionality
-    function displayProfile(directorKey) {
-      const director = directorsData[directorKey];
+    function displayProfile(registrarKey) {
+      const registrar = registrarsData[registrarKey];
       const profileDisplay = document.querySelector('.profile-display');
       const loadingState = document.getElementById('loadingState');
       
       // Update active state in sidebar
-      document.querySelectorAll('.director-item').forEach(item => {
+      document.querySelectorAll('.registrar-item').forEach(item => {
         item.classList.remove('active');
       });
       event.currentTarget.classList.add('active');
@@ -602,33 +602,33 @@
         profileDisplay.innerHTML = `
           <div class="profile-hero fade-in">
             <div class="profile-image">
-              <img src="img/avatar-military.png" alt="${director.name}">
+              <img src="img/avatar-military.png" alt="${registrar.name}">
             </div>
             <div class="profile-details">
-              <h1 class="profile-name">${director.name}</h1>
-              <p class="profile-title">${director.title}</p>
+              <h1 class="profile-name">${registrar.name}</h1>
+              <p class="profile-title">${registrar.title}</p>
               <div class="profile-stats">
                 <div class="stat-item">
                   <div class="stat-label">Years Served</div>
-                  <span class="stat-value">${director.yearsServed}</span>
+                  <span class="stat-value">${registrar.yearsServed}</span>
                 </div>
                 <div class="stat-item">
-                  <div class="stat-label">Departments Managed</div>
-                  <span class="stat-value">${director.departmentsManaged}</span>
+                  <div class="stat-label">Students Managed</div>
+                  <span class="stat-value">${registrar.studentsManaged}</span>
                 </div>
                 <div class="stat-item">
-                  <div class="stat-label">Policies Implemented</div>
-                  <span class="stat-value">${director.policiesImplemented}</span>
+                  <div class="stat-label">Records Digitized</div>
+                  <span class="stat-value">${registrar.recordsDigitized}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="profile-biography fade-in">
             <h3 class="biography-title">
-              <i class="fas fa-cogs"></i>
-              Administrative Leadership & Achievements
+              <i class="fas fa-file-alt"></i>
+              Academic Records Management & Achievements
             </h3>
-            <p class="biography-text">${director.biography}</p>
+            <p class="biography-text">${registrar.biography}</p>
           </div>
         `;
       }, 600);
@@ -636,11 +636,11 @@
 
     // Initialize page
     document.addEventListener('DOMContentLoaded', function() {
-      navState.storeCurrentSection('directors');
+      navState.storeCurrentSection('registrars');
       
-      // Auto-load the first (example) director profile
+      // Auto-load the first (example) registrar profile
       setTimeout(() => {
-        displayProfile('williams');
+        displayProfile('johnson');
       }, 800);
     });
   </script>
