@@ -355,18 +355,19 @@
       flex: 1;
     }
 
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
     .stat-value {
       font-family: 'Cinzel', serif;
       font-size: 1.2rem;
       font-weight: 600;
       color: var(--primary-gold);
       display: block;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
     }
 
     .profile-biography {
@@ -916,12 +917,12 @@
             <p class="profile-title">${chief.title}</p>
             <div class="profile-stats">
               <div class="stat-item">
-                <span class="stat-value">${chief.yearsOfService}</span>
                 <span class="stat-label">Service Period</span>
+                <span class="stat-value">${chief.yearsOfService}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value">${chief.appointments}</span>
                 <span class="stat-label">Legacy</span>
+                <span class="stat-value">${chief.appointments}</span>
               </div>
             </div>
           </div>

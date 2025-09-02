@@ -351,18 +351,18 @@
       flex: 1;
     }
 
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
     .stat-value {
       font-family: 'Cinzel', serif;
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--primary-gold);
       display: block;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
     }
 
     .profile-biography {
@@ -609,16 +609,16 @@
               <p class="profile-title">${director.title}</p>
               <div class="profile-stats">
                 <div class="stat-item">
-                  <span class="stat-value">${director.yearsServed}</span>
                   <div class="stat-label">Years Served</div>
+                  <span class="stat-value">${director.yearsServed}</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-value">${director.departmentsManaged}</span>
                   <div class="stat-label">Departments Managed</div>
+                  <span class="stat-value">${director.departmentsManaged}</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-value">${director.policiesImplemented}</span>
                   <div class="stat-label">Policies Implemented</div>
+                  <span class="stat-value">${director.policiesImplemented}</span>
                 </div>
               </div>
             </div>

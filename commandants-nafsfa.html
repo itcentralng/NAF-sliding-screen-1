@@ -351,18 +351,19 @@
       flex: 1;
     }
 
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
     .stat-value {
       font-family: 'Cinzel', serif;
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--primary-gold);
       display: block;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
     }
 
     .profile-biography {
@@ -721,12 +722,12 @@
             <p class="profile-title">${commandant.title}</p>
             <div class="profile-stats">
               <div class="stat-item">
-                <span class="stat-value">${commandant.yearsOfService}</span>
                 <span class="stat-label">Service Period</span>
+                <span class="stat-value">${commandant.yearsOfService}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value">${commandant.appointments}</span>
                 <span class="stat-label">Position</span>
+                <span class="stat-value">${commandant.appointments}</span>
               </div>
             </div>
           </div>

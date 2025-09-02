@@ -351,18 +351,19 @@
       flex: 1;
     }
 
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
     .stat-value {
       font-family: 'Cinzel', serif;
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--primary-gold);
       display: block;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
     }
 
     .profile-biography {
@@ -537,7 +538,7 @@
   <main class="commanders-container">
     <div class="commanders-header">
       <h1>Commanders 081 PAG</h1>
-      <p>Distinguished leaders who have shaped the Personnel Administration Group through their strategic vision, administrative excellence, and unwavering commitment to the Nigerian Air Force.</p>
+      <p>Distinguished leaders who have shaped 081 PAG through their strategic vision, administrative excellence, and unwavering commitment to the Nigerian Air Force.</p>
     </div>
 
     <div class="commanders-main">
@@ -676,12 +677,12 @@
             <p class="profile-title">${commander.title}</p>
             <div class="profile-stats">
               <div class="stat-item">
-                <span class="stat-value">${commander.yearsOfService}</span>
                 <span class="stat-label">Service Period</span>
+                <span class="stat-value">${commander.yearsOfService}</span>
               </div>
               <div class="stat-item">
-                <span class="stat-value">${commander.appointments}</span>
                 <span class="stat-label">Position</span>
+                <span class="stat-value">${commander.appointments}</span>
               </div>
             </div>
           </div>
