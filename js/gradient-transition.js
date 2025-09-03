@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const totalDistance = endPosition - startPosition;
   
   // Calculate animation duration based on specific section transitions
-  // Home to Chiefs: 3s, Chiefs to Commanders: 5s, Commanders to NAFSFA: 5s, NAFSFA to End: 3s
+  // Home to Chiefs: 7.2s, Chiefs to Commanders: 9.6s, Commanders to NAFSFA: 8.8s, NAFSFA to End: 6s
   function calculateAnimationDuration(fromPos, toPos) {
-    const sectionDurations = [3600, 4800, 4400, 3000]; // durations in milliseconds
+    const sectionDurations = [7200, 9600, 8800, 6000]; // durations in milliseconds
     let totalDuration = 0;
     
     const start = Math.min(fromPos, toPos);
