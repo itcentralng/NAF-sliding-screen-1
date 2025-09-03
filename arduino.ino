@@ -1,5 +1,5 @@
 // Stepper Motor Control with TB6600 Driver and Array-based Positioning
-// Commands: 'start', 'a', 'b', 'c', 'd', 'e', 'f', 'h'
+// Commands: 'home', 'chiefs', 'commanders', 'nafsfa', 'end'
 // Motor moves to the position corresponding to the array index of the command
 
 #define STEP_PIN 6
@@ -13,8 +13,8 @@ int stepDelay = 1000; // microseconds between steps (adjust for speed)
 
 // Position array and motor control variables
 String positions[5] = {"home", "chiefs", "commanders", "nafsfa", "end"};
-// Absolute positions from home (index 0) in steps
-const int ABSOLUTE_POSITIONS[5] = {0, 2000, 4500, 7000, 9000}; // home, chiefs, commanders, nafsfa, end
+const int MAX_STEPS = 8000; // Total steps from index 0 to index 4
+const int STEPS_PER_INDEX = MAX_STEPS / 4; // Steps between each index (8000/4 = 2000)
 
 int currentPosition = -1; // Current motor position index (-1 means unknown)
 bool isCalibrated = false; // Flag to track if motor has been calibrated to start position
@@ -36,11 +36,10 @@ void setup() {
 
     Serial.println("Array-based Stepper Motor Controller Ready");
     Serial.println("Available positions: home, chiefs, commanders, nafsfa, end");
-    Serial.println("Special commands: recalibrate (or cal)");
-    Serial.println("Calibrating to start position...");
+    Serial.println("Calibrating to home position...");
     
-    // Move to start position (index 0) on startup
-    calibrateToStart();
+    // Move to home position (index 0) on startup
+    calibrateToHome();
 }
 
 void loop() {
@@ -53,12 +52,6 @@ void loop() {
 }
 
 void parseAndExecuteCommand(String command) {
-    // Check for special commands first
-    if (command.equals("recalibrate") || command.equals("cal")) {
-        recalibrateToHome();
-        return;
-    }
-    
     // Find the index of the command in the positions array
     int targetIndex = -1;
     for (int i = 0; i < 5; i++) {
@@ -70,19 +63,18 @@ void parseAndExecuteCommand(String command) {
     
     if (targetIndex == -1) {
         Serial.println("Invalid command. Available positions: home, chiefs, commanders, nafsfa, end");
-        Serial.println("Special commands: recalibrate (or cal)");
         return;
     }
     
     if (!isCalibrated) {
-        Serial.println("Motor not calibrated. Calibrating to start position...");
-        calibrateToStart();
+        Serial.println("Motor not calibrated. Calibrating to home position...");
+        calibrateToHome();
     }
     
     moveToPosition(targetIndex);
 }
 
-void calibrateToStart() {
+void calibrateToHome() {
     Serial.println("Calibrating: Moving left to limit switch...");
     
     // Move left until limit switch is hit
@@ -106,9 +98,9 @@ void calibrateToStart() {
         delayMicroseconds(stepDelay);
     }
     
-    currentPosition = 0; // Now at start position
+    currentPosition = 0; // Now at home position
     isCalibrated = true;
-    Serial.println("Calibration complete. Motor is at 'start' position.");
+    Serial.println("Calibration complete. Motor is at 'home' position.");
 }
 
 void moveToPosition(int targetIndex) {
@@ -117,16 +109,11 @@ void moveToPosition(int targetIndex) {
         return;
     }
     
-    // Calculate steps needed using absolute positions
-    int currentAbsolutePos = ABSOLUTE_POSITIONS[currentPosition];
-    int targetAbsolutePos = ABSOLUTE_POSITIONS[targetIndex];
-    int stepsToMove = abs(targetAbsolutePos - currentAbsolutePos);
-    bool moveRight = targetAbsolutePos > currentAbsolutePos;
+    int stepsToMove = abs(targetIndex - currentPosition) * STEPS_PER_INDEX;
+    bool moveRight = targetIndex > currentPosition;
     
     Serial.println("Moving from position '" + positions[currentPosition] + "' (index " + String(currentPosition) + 
                   ") to '" + positions[targetIndex] + "' (index " + String(targetIndex) + ")");
-    Serial.println("Current absolute position: " + String(currentAbsolutePos) + " steps");
-    Serial.println("Target absolute position: " + String(targetAbsolutePos) + " steps");
     Serial.println("Direction: " + String(moveRight ? "right" : "left") + ", Steps: " + String(stepsToMove));
     
     moveMotor(moveRight, stepsToMove);
@@ -145,7 +132,7 @@ void moveMotor(bool clockwise, int steps) {
         if (digitalRead(LIMIT_SWITCH_PIN) == LOW) {
             Serial.println("Limit switch triggered! Stopping motor after " + String(i) + " steps.");
             
-            // If we hit the limit switch, we're at position 0 (start)
+            // If we hit the limit switch, we're at position 0 (home)
             currentPosition = 0;
             
             // Move 100 steps in the opposite direction to clear the switch
@@ -167,44 +154,5 @@ void moveMotor(bool clockwise, int steps) {
     }
 
     Serial.println("Motor movement complete");
-}
-
-// Optional: Recalibrate to home position to correct any cumulative errors
-void recalibrateToHome() {
-    Serial.println("Recalibrating to home position...");
-    
-    // Move to home position using absolute positioning
-    if (currentPosition != 0) {
-        moveToPosition(0);
-    }
-    
-    // Now do a fine calibration using the limit switch
-    Serial.println("Fine calibration: Moving left to limit switch...");
-    digitalWrite(DIR_PIN, HIGH); // Left direction
-    
-    int calibrationSteps = 0;
-    while (digitalRead(LIMIT_SWITCH_PIN) == HIGH && calibrationSteps < 500) { // Limit calibration to 500 steps
-        digitalWrite(STEP_PIN, HIGH);
-        delayMicroseconds(stepDelay);
-        digitalWrite(STEP_PIN, LOW);
-        delayMicroseconds(stepDelay);
-        calibrationSteps++;
-    }
-    
-    if (calibrationSteps > 0) {
-        Serial.println("Calibration adjustment: " + String(calibrationSteps) + " steps");
-        
-        // Move 100 steps right to clear the limit switch
-        digitalWrite(DIR_PIN, LOW); // Right direction
-        for (int i = 0; i < 100; i++) {
-            digitalWrite(STEP_PIN, HIGH);
-            delayMicroseconds(stepDelay);
-            digitalWrite(STEP_PIN, LOW);
-            delayMicroseconds(stepDelay);
-        }
-    }
-    
-    currentPosition = 0;
-    Serial.println("Recalibration complete. Motor is at 'home' position.");
 }
 

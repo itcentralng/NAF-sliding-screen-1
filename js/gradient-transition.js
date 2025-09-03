@@ -39,28 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
   let startTime = null;
   let isAnimating = false;
   
-  // Position values (0 = home, 1 = chiefs, 2 = commanders, 3 = commandants)
+  // Position values (0 = home, 1 = chiefs, 2 = commanders, 3 = nafsfa, 4 = end)
   const startPosition = fromSectionData.position;
   const endPosition = targetSectionData.position;
   const totalDistance = endPosition - startPosition;
   
-  // Calculate animation duration based on specific section transitions
-  // Home to Chiefs: 3s, Chiefs to Commanders: 5s, Commanders to NAFSFA: 5s, NAFSFA to End: 3s
-  function calculateAnimationDuration(fromPos, toPos) {
-    const sectionDurations = [3000, 5000, 5000, 3000]; // durations in milliseconds
-    let totalDuration = 0;
-    
-    const start = Math.min(fromPos, toPos);
-    const end = Math.max(fromPos, toPos);
-    
-    for (let i = start; i < end; i++) {
-      totalDuration += sectionDurations[i];
-    }
-    
-    return totalDuration;
-  }
-  
-  const animationDuration = calculateAnimationDuration(startPosition, endPosition);
+  // Calculate animation duration: 3 seconds per section traversed
+  // For example: home to end = 4 sections = 12 seconds
+  // chiefs to nafsfa = 2 sections = 6 seconds
+  const sectionsToTraverse = Math.abs(totalDistance);
+  const animationDuration = sectionsToTraverse * 3000; // 3 seconds per section
   
   // Disable CSS transitions for manual control
   container.style.transition = 'none';
