@@ -1,7 +1,7 @@
 @echo off
 :: Start the app
-start "" python -m http.server 8000
-start "" python main.py
+start /MIN "" python -m http.server 8000
+start /MIN "" python main.py
 timeout /t 5 /nobreak
 
 :: Uncomment the line below if you prefer to use Microsoft Edge
