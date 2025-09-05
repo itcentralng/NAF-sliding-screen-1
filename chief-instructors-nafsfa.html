@@ -599,7 +599,7 @@
         </div>
         
         <div class="instructors-list">
-          <div class="instructor-item active" onclick="displayProfile('yakubu')">
+          <div class="instructor-item active" onclick="displayProfile('yakubu_air_cdre')">
             <div class="avatar">
               <img src="img/instructors/ci-1.jpg" alt="Air Cdre I Yakubu">
             </div>
@@ -609,13 +609,23 @@
             </div>
           </div>
           
+          <div class="instructor-item" onclick="displayProfile('yakubu_wg_cdr')">
+            <div class="avatar">
+              <img src="img/instructors/ci-4.jpeg" alt="Wing Commander I Yakubu">
+            </div>
+            <div class="info">
+              <h4>Wg Cdr I Yakubu</h4>
+              <span>Mar 17 – Feb 20</span>
+            </div>
+          </div>
+          
           <div class="instructor-item" onclick="displayProfile('utoruwei')">
             <div class="avatar">
               <img src="img/instructors/ci-3.jpg" alt="Wing Commander Bebai Sampson Utoruwei">
             </div>
             <div class="info">
               <h4>Wg Cdr Bebai Sampson Utoruwei</h4>
-              <span>Chief Instructor</span>
+              <span>Feb 15 – Mar 16</span>
             </div>
           </div>
           
@@ -626,6 +636,16 @@
             <div class="info">
               <h4>Wg Cdr AU Ahmed</h4>
               <span>Chief Instructor</span>
+            </div>
+          </div>
+          
+          <div class="instructor-item" onclick="displayProfile('alfa')">
+            <div class="avatar">
+              <img src="img/instructors/ci-5.jpeg" alt="Squadron Leader FA Alfa">
+            </div>
+            <div class="info">
+              <h4>Sqn Ldr FA Alfa</h4>
+              <span>Jun 24 – May 25</span>
             </div>
           </div>
         </div>
@@ -647,13 +667,23 @@
   <script>
     // Chief Instructor profiles data
     const instructorsData = {
-      yakubu: {
+      yakubu_air_cdre: {
         name: "Air Cdre I Yakubu",
         title: "Chief Instructor",
         yearsServed: "Various Periods",
         coursesLed: "Multiple Courses",
         studentsGraduated: "Numerous Officers",
         biography: "Air Commodore I. Yakubu has served with distinction as a Chief Instructor at the Nigerian Air Force School of Finance and Accounts (NAFSFA). His extensive experience and expertise in financial management and military operations have contributed significantly to the academic excellence of the institution. Throughout his career, he has demonstrated exceptional leadership qualities and has been instrumental in shaping the financial education of numerous NAF officers. His commitment to professional development and academic excellence continues to influence the standards at NAFSFA."
+      },
+      yakubu_wg_cdr: {
+        name: "Wing Commander Isiaq Yakubu (NAF/2577)",
+        title: "NAFSFA Chief Instructor",
+        yearsServed: "Mar 17 – Feb 20",
+        coursesLed: "Finance & Accounting",
+        studentsGraduated: "Multiple Batches",
+        awards: "MSS Psc Msc",
+        qualifications: "FCNA FNIM CITN CNA MIADS",
+        biography: "Wing Commander Isiaq Yakubu (NAF/2577) served as Chief Instructor at NAFSFA from March 2017 to February 2020. During his tenure, he demonstrated exceptional leadership in academic excellence and professional development of finance officers. His extensive qualifications include Fellow Certified National Accountant (FCNA), Fellow Nigerian Institute of Management (FNIM), Chartered Institute of Taxation of Nigeria (CITN), Certified National Accountant (CNA), and Member Institute of Administration (MIADS). He has been awarded the Meritorious Service Star (MSS), Passed Staff College (Psc), and Master of Science degree (Msc). His comprehensive expertise in finance, taxation, and management has significantly contributed to the academic standards and curriculum development at NAFSFA."
       },
       utoruwei: {
         name: "Wg Cdr Bebai Sampson Utoruwei",
@@ -670,6 +700,16 @@
         coursesLed: "Finance & Accounting",
         studentsGraduated: "Multiple Batches",
         biography: "Wing Commander Aliyu Umar Ahmed (NAF/3137) was born on 13 April 1984 in Kaduna State and hails from Gwaram Local Government of Jigawa State. He attended primary school in Port Harcourt, River State and Air Force Military School, Jos for secondary education as a member of 56 Regular Course of the Nigerian Defence Academy. He holds a Bachelor of Science Degree in Economics and Accounting from the Nigerian Defence Academy, a Post Graduate Degree in Logistics and Supply Chain Management from Air Force Institute of Technology (AFIT), Kaduna, and a Masters in Leadership and Diplomatic Studies from the Nigerian Defence Academy Post Graduate School, Kaduna. He has attended numerous courses including Air Borne Course, Initial Supply Officers Course, Logistics and Supply Chain Management Course, Initial Finance Officers Course at Badagry, Junior and Senior Staff Courses at AFCSC Jaji, and Professional Accounting Course in Coimbatore, India. His career appointments include Projects Officer in PIMT at HQ NAF Abuja, Group Finance Officer at various bases, Chief Instructor at NAFSFA Badagry, Command Finance Officer at HQ Logistics Command Ikeja and HQ Air Training Command Kaduna, and currently Assistant Director of Budget at Nigerian Defence Academy. He is a Certified National Accountant with FSS and Psc awards, happily married with 5 children. His hobbies include watching football, reading, sharing jokes and impacting knowledge."
+      },
+      alfa: {
+        name: "Squadron Leader Felix Akoji Alfa (NAF/3419)",
+        title: "NAFSFA Chief Instructor",
+        yearsServed: "Jun 24 – May 25",
+        coursesLed: "Finance & Accounting",
+        studentsGraduated: "Multiple Batches",
+        awards: "FSS Pjsc",
+        qualifications: "CPA AMNIM ACAA",
+        biography: "Squadron Leader Felix Akoji Alfa (NAF/3419) served as Chief Instructor at NAFSFA from June 2024 to May 2025. During his tenure, he brought fresh perspectives and modern approaches to financial education and training. His professional qualifications include Certified Public Accountant (CPA), Associate Member Nigerian Institute of Management (AMNIM), and Associate Chartered Accountant of Africa (ACAA). He has been awarded the Forces Service Star (FSS) and Passed Junior Staff College (Pjsc). His expertise in contemporary accounting practices and financial management has enhanced the curriculum delivery and ensured that NAFSFA training remains relevant to current industry standards and military financial operations."
       }
     };
 
@@ -681,9 +721,11 @@
       
       // Map instructor keys to image files
       const imageMap = {
-        'yakubu': 'img/instructors/ci-1.jpg',
+        'yakubu_air_cdre': 'img/instructors/ci-1.jpg',
+        'yakubu_wg_cdr': 'img/instructors/ci-4.jpeg',
         'utoruwei': 'img/instructors/ci-3.jpg',
-        'ahmed': 'img/instructors/ci-2.jpg'
+        'ahmed': 'img/instructors/ci-2.jpg',
+        'alfa': 'img/instructors/ci-5.jpeg'
       };
       
       // Update active state in sidebar
@@ -698,6 +740,58 @@
       }
       
       setTimeout(() => {
+        // Create stats section based on available data
+        let statsSection = '';
+        if (instructor.awards || instructor.qualifications) {
+          statsSection = `
+            <div class="profile-stats">
+              <div class="stat-item">
+                <div class="stat-label">Years Served</div>
+                <span class="stat-value">${instructor.yearsServed}</span>
+              </div>
+              ${instructor.awards ? `
+              <div class="stat-item">
+                <div class="stat-label">Awards</div>
+                <span class="stat-value">${instructor.awards}</span>
+              </div>
+              ` : `
+              <div class="stat-item">
+                <div class="stat-label">Courses Led</div>
+                <span class="stat-value">${instructor.coursesLed}</span>
+              </div>
+              `}
+              ${instructor.qualifications ? `
+              <div class="stat-item">
+                <div class="stat-label">Qualifications</div>
+                <span class="stat-value">${instructor.qualifications}</span>
+              </div>
+              ` : `
+              <div class="stat-item">
+                <div class="stat-label">Students Graduated</div>
+                <span class="stat-value">${instructor.studentsGraduated}</span>
+              </div>
+              `}
+            </div>
+          `;
+        } else {
+          statsSection = `
+            <div class="profile-stats">
+              <div class="stat-item">
+                <div class="stat-label">Years Served</div>
+                <span class="stat-value">${instructor.yearsServed}</span>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Courses Led</div>
+                <span class="stat-value">${instructor.coursesLed}</span>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Students Graduated</div>
+                <span class="stat-value">${instructor.studentsGraduated}</span>
+              </div>
+            </div>
+          `;
+        }
+        
         profileDisplay.innerHTML = `
           <div class="profile-hero fade-in">
             <div class="profile-image">
@@ -706,20 +800,7 @@
             <div class="profile-details">
               <h1 class="profile-name">${instructor.name}</h1>
               <p class="profile-title">${instructor.title}</p>
-              <div class="profile-stats">
-                <div class="stat-item">
-                  <div class="stat-label">Years Served</div>
-                  <span class="stat-value">${instructor.yearsServed}</span>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-label">Courses Led</div>
-                  <span class="stat-value">${instructor.coursesLed}</span>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-label">Students Graduated</div>
-                  <span class="stat-value">${instructor.studentsGraduated}</span>
-                </div>
-              </div>
+              ${statsSection}
             </div>
           </div>
           <div class="profile-biography fade-in">
@@ -739,7 +820,7 @@
       
       // Auto-load the first instructor profile
       setTimeout(() => {
-        displayProfile('yakubu');
+        displayProfile('yakubu_air_cdre');
       }, 800);
       
       // Back button functionality - direct navigation to nafsfa-sections.html
