@@ -599,7 +599,7 @@
         </div>
         
         <div class="instructors-list">
-          <div class="instructor-item active" onclick="displayProfile('yakubu_air_cdre')">
+          <div class="instructor-item active" onclick="displayProfile('yakubu_air_cdre', this)">
             <div class="avatar">
               <img src="img/instructors/ci-1.jpg" alt="Air Cdre I Yakubu">
             </div>
@@ -609,7 +609,7 @@
             </div>
           </div>
           
-          <div class="instructor-item" onclick="displayProfile('yakubu_wg_cdr')">
+          <div class="instructor-item" onclick="displayProfile('yakubu_wg_cdr', this)">
             <div class="avatar">
               <img src="img/instructors/ci-4.jpeg" alt="Wing Commander I Yakubu">
             </div>
@@ -619,7 +619,7 @@
             </div>
           </div>
           
-          <div class="instructor-item" onclick="displayProfile('utoruwei')">
+          <div class="instructor-item" onclick="displayProfile('utoruwei', this)">
             <div class="avatar">
               <img src="img/instructors/ci-3.jpg" alt="Wing Commander Bebai Sampson Utoruwei">
             </div>
@@ -629,7 +629,7 @@
             </div>
           </div>
           
-          <div class="instructor-item" onclick="displayProfile('ahmed')">
+          <div class="instructor-item" onclick="displayProfile('ahmed', this)">
             <div class="avatar">
               <img src="img/instructors/ci-2.jpg" alt="Wing Commander AU Ahmed">
             </div>
@@ -639,7 +639,7 @@
             </div>
           </div>
           
-          <div class="instructor-item" onclick="displayProfile('alfa')">
+          <div class="instructor-item" onclick="displayProfile('alfa', this)">
             <div class="avatar">
               <img src="img/instructors/ci-5.jpeg" alt="Squadron Leader FA Alfa">
             </div>
@@ -714,7 +714,7 @@
     };
 
     // Profile display functionality
-    function displayProfile(instructorKey) {
+    function displayProfile(instructorKey, clickedElement = null) {
       const instructor = instructorsData[instructorKey];
       const profileDisplay = document.querySelector('.profile-display');
       const loadingState = document.getElementById('loadingState');
@@ -732,7 +732,20 @@
       document.querySelectorAll('.instructor-item').forEach(item => {
         item.classList.remove('active');
       });
-      event.currentTarget.classList.add('active');
+      
+      // Set active state - either from clicked element or find by instructor key
+      if (clickedElement) {
+        clickedElement.classList.add('active');
+      } else {
+        // Find the correct instructor item by instructor key
+        const instructorItems = document.querySelectorAll('.instructor-item');
+        instructorItems.forEach(item => {
+          const onclickAttr = item.getAttribute('onclick');
+          if (onclickAttr && onclickAttr.includes(instructorKey)) {
+            item.classList.add('active');
+          }
+        });
+      }
       
       // Show loading state
       if (loadingState) {
@@ -818,10 +831,8 @@
     document.addEventListener('DOMContentLoaded', function() {
       navState.storeCurrentSection('instructors');
       
-      // Auto-load the first instructor profile
-      setTimeout(() => {
-        displayProfile('yakubu_air_cdre');
-      }, 800);
+      // Auto-load the first instructor profile immediately
+      displayProfile('yakubu_air_cdre');
       
       // Back button functionality - direct navigation to nafsfa-sections.html
       const backBtn = document.querySelector('.back-btn');
