@@ -599,7 +599,7 @@
         </div>
         
         <div class="instructors-list">
-          <div class="instructor-item active" onclick="displayProfile('yakubu_air_cdre', this)">
+          <!-- <div class="instructor-item active" onclick="displayProfile('yakubu_air_cdre', this)">
             <div class="avatar">
               <img src="img/instructors/ci-1.jpg" alt="Air Cdre I Yakubu">
             </div>
@@ -607,9 +607,9 @@
               <h4>Air Cdre I Yakubu</h4>
               <span>Chief Instructor</span>
             </div>
-          </div>
+          </div> -->
           
-          <div class="instructor-item" onclick="displayProfile('yakubu_wg_cdr', this)">
+          <div class="instructor-item active" onclick="displayProfile('yakubu_wg_cdr', this)">
             <div class="avatar">
               <img src="img/instructors/ci-4.jpeg" alt="Wing Commander I Yakubu">
             </div>
@@ -832,7 +832,7 @@
       navState.storeCurrentSection('instructors');
       
       // Auto-load the first instructor profile immediately
-      displayProfile('yakubu_air_cdre');
+      displayProfile('yakubu_wg_cdr');
       
       // Back button functionality - direct navigation to nafsfa-sections.html
       const backBtn = document.querySelector('.back-btn');
