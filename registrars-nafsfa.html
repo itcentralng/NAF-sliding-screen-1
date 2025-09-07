@@ -599,13 +599,13 @@
         </div>
         
         <div class="registrars-list">
-          <div class="registrar-item active" onclick="displayProfile('johnson')">
+          <div class="registrar-item active" onclick="displayProfile('mapaderun')">
             <div class="avatar">
-              <img src="img/avatar-military.png" alt="Johnson">
+              <img src="img/registrars/image1.jpeg" alt="Adeyemi Mapaderun">
             </div>
             <div class="info">
-              <h4>Flight Lieutenant Johnson</h4>
-              <span>Registrar (Example)</span>
+              <h4>Mr. Adeyemi Mapaderun</h4>
+              <span>Pioneer Registrar</span>
             </div>
           </div>
         </div>
@@ -627,13 +627,11 @@
   <script>
     // Registrar profiles data
     const registrarsData = {
-      johnson: {
-        name: "Flight Lieutenant Johnson",
-        title: "Registrar (Example)",
-        yearsServed: "2020-2023",
-        studentsManaged: "2,000+",
-        recordsDigitized: "15,000+",
-        biography: "Flight Lieutenant Johnson served as a meticulous and dedicated Registrar at the Nigerian Air Force School of Finance and Accounts (NAFSFA), bringing exceptional organizational skills and attention to detail to the management of academic records and student services. With extensive experience in educational administration and records management, he was instrumental in modernizing NAFSFA's student information systems and enhancing the efficiency of academic operations. During his tenure, Flight Lieutenant Johnson implemented comprehensive digital transformation initiatives that revolutionized how student records were maintained and accessed. He oversaw the complete digitization of legacy student files, ensuring data integrity while improving accessibility for both staff and students. His leadership in developing standardized procedures for enrollment, grade recording, and transcript processing significantly reduced processing times and eliminated errors. He established robust verification systems for academic credentials and implemented quality control measures that enhanced the credibility of NAFSFA certificates and transcripts. Flight Lieutenant Johnson also played a crucial role in curriculum compliance monitoring, ensuring that all academic programs met the required standards set by relevant educational authorities. His expertise in data management and privacy protection ensured that sensitive student information was handled with the utmost confidentiality and security. Under his administration, student services were enhanced through the introduction of online portals for grade checking, course registration, and transcript requests. His collaborative approach with faculty and administrative staff improved communication and streamlined academic processes. Flight Lieutenant Johnson's commitment to excellence in record keeping and student services positioned NAFSFA as a model institution for academic administration within the Nigerian Air Force educational system."
+      mapaderun: {
+        name: "Mr. Adeyemi Mapaderun",
+        title: "Pioneer Registrar",
+        yearsServed: "July 2015 - June 2023",
+        biography: "Mr. Adeyemi Mapaderun was the pioneer Registrar of Nigerian Air Force School of Finance and Accounts between July 2015 and June 2023. In addition to his primary role as Registrar, he was also an instructor who designed and taught English and Communication Skills at IBAC and Upgraders' levels. He also taught the course on Contemporary Issues in Public Financial Management, which he co-designed with the Commandant. Mr. Mapaderun chaired the first Curriculum Review Committee of the School in 2015, under now AVM Halim Adebowale, who was the pioneer Commandant of NAFSFA. He also initiated the NAFSFA Graduation lecture series. The curriculum witnessed further reviews under subsequent Commandants. Mr. Mapaderun introduced and supervised the Students' Presentation series, Study Visits, which took students to places of interest in Badagry, including the Administrative Staff College of Nigeria, ASCON, Nigeria French Village and the Slave Museum, among others. He also coordinated the Basic Finance Officers' training on International Public Sector Accounting Standards, IPSAS at ASCON. Before his exit from NAFSFA, Mr. Mapaderun participated in two inspections to the current site of the School in Ibadan, during which time he made observations on the design and construction of some facilities in the School."
       }
     };
 
@@ -647,7 +645,12 @@
       document.querySelectorAll('.registrar-item').forEach(item => {
         item.classList.remove('active');
       });
-      event.currentTarget.classList.add('active');
+      
+      // Find the correct registrar item and mark it as active
+      const targetItem = document.querySelector(`[onclick="displayProfile('${registrarKey}')"]`);
+      if (targetItem) {
+        targetItem.classList.add('active');
+      }
       
       // Show loading state
       if (loadingState) {
@@ -658,31 +661,23 @@
         profileDisplay.innerHTML = `
           <div class="profile-hero fade-in">
             <div class="profile-image">
-              <img src="img/avatar-military.png" alt="${registrar.name}">
+              <img src="img/registrars/image1.jpeg" alt="${registrar.name}">
             </div>
             <div class="profile-details">
               <h1 class="profile-name">${registrar.name}</h1>
               <p class="profile-title">${registrar.title}</p>
               <div class="profile-stats">
                 <div class="stat-item">
-                  <div class="stat-label">Years Served</div>
+                  <div class="stat-label">Service Period</div>
                   <span class="stat-value">${registrar.yearsServed}</span>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-label">Students Managed</div>
-                  <span class="stat-value">${registrar.studentsManaged}</span>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-label">Records Digitized</div>
-                  <span class="stat-value">${registrar.recordsDigitized}</span>
                 </div>
               </div>
             </div>
           </div>
           <div class="profile-biography fade-in">
             <h3 class="biography-title">
-              <i class="fas fa-file-alt"></i>
-              Academic Records Management & Achievements
+              <i class="fas fa-graduation-cap"></i>
+              Pioneer Achievements & Academic Contributions
             </h3>
             <p class="biography-text">${registrar.biography}</p>
           </div>
@@ -694,9 +689,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       navState.storeCurrentSection('registrars');
       
-      // Auto-load the first (example) registrar profile
+      // Auto-load the first registrar profile
       setTimeout(() => {
-        displayProfile('johnson');
+        displayProfile('mapaderun');
       }, 800);
     });
   </script>
