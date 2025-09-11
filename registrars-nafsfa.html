@@ -599,7 +599,17 @@
         </div>
         
         <div class="registrars-list">
-          <div class="registrar-item active" onclick="displayProfile('mapaderun')">
+          <div class="registrar-item active" onclick="displayProfile('fatai')">
+            <div class="avatar">
+              <img src="img/registrars/image2.jpeg" alt="Wing Cdr G A Fatai">
+            </div>
+            <div class="info">
+              <h4>Wing Cdr G A Fatai</h4>
+              <span>Current Registrar</span>
+            </div>
+          </div>
+          
+          <div class="registrar-item" onclick="displayProfile('mapaderun')">
             <div class="avatar">
               <img src="img/registrars/image1.jpeg" alt="Adeyemi Mapaderun">
             </div>
@@ -627,6 +637,12 @@
   <script>
     // Registrar profiles data
     const registrarsData = {
+      fatai: {
+        name: "Wing Cdr G A Fatai",
+        title: "Current Registrar",
+        yearsServed: "June 2023 - Present",
+        biography: "Wing Cdr G A Fatai is the current Registrar of NAFSFA till date. An appointment he has displayed an exemplary leadership grounded in compassion and deep sense of purpose. He supervises and evaluates instructors occasionally and provides support when needed. His tenure is marked with foresight and tangible impact of which he has contributed meaningfully to the continuous growth and operational effectiveness of the institution. Under his leadership, NAFSFA continues to maintain its high standards of academic excellence and administrative efficiency."
+      },
       mapaderun: {
         name: "Mr. Adeyemi Mapaderun",
         title: "Pioneer Registrar",
@@ -661,7 +677,7 @@
         profileDisplay.innerHTML = `
           <div class="profile-hero fade-in">
             <div class="profile-image">
-              <img src="img/registrars/image1.jpeg" alt="${registrar.name}">
+              <img src="img/registrars/${registrarKey === 'fatai' ? 'image2.jpeg' : 'image1.jpeg'}" alt="${registrar.name}">
             </div>
             <div class="profile-details">
               <h1 class="profile-name">${registrar.name}</h1>
@@ -677,7 +693,7 @@
           <div class="profile-biography fade-in">
             <h3 class="biography-title">
               <i class="fas fa-graduation-cap"></i>
-              Pioneer Achievements & Academic Contributions
+              ${registrarKey === 'fatai' ? 'Current Leadership & Contributions' : 'Pioneer Achievements & Academic Contributions'}
             </h3>
             <p class="biography-text">${registrar.biography}</p>
           </div>
@@ -689,9 +705,9 @@
     document.addEventListener('DOMContentLoaded', function() {
       navState.storeCurrentSection('registrars');
       
-      // Auto-load the first registrar profile
+      // Auto-load the current registrar profile
       setTimeout(() => {
-        displayProfile('mapaderun');
+        displayProfile('fatai');
       }, 800);
     });
   </script>
