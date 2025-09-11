@@ -709,6 +709,17 @@
       setTimeout(() => {
         displayProfile('fatai');
       }, 800);
+
+      // Back button functionality - direct navigation to nafsfa-sections.html
+      const backBtn = document.querySelector('.back-btn');
+      if (backBtn) {
+        backBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Navigate back directly without any transition effects
+          window.location.href = this.href;
+        });
+      }
     });
   </script>
 </body>
