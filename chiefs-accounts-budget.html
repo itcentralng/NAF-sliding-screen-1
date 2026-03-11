@@ -608,13 +608,22 @@
           <span>Click to view profile</span>
         </div>
         <div class="chiefs-list">
-          <div class="chief-item active" data-chief="nwagwu">
+          <div class="chief-item active" data-chief="bukar">
+            <div class="avatar">
+              <img src="img/chiefs/bukar.jpg" alt="AVM SA Bukar">
+            </div>
+            <div class="info">
+              <h4>AVM SA Bukar</h4>
+              <span>Feb 26 - Present</span>
+            </div>
+          </div>
+          <div class="chief-item" data-chief="nwagwu">
             <div class="avatar">
               <img src="img/chiefs/nwagwu.png" alt="AVM CU Nwagwu">
             </div>
             <div class="info">
               <h4>AVM CU Nwagwu</h4>
-              <span>Jun 23 - Present</span>
+              <span>Jun 23 - Feb 26</span>
             </div>
           </div>
           <div class="chief-item" data-chief="ochomma">
@@ -800,11 +809,19 @@
   <script>
     // Chiefs profiles data
     const chiefsData = {
+      bukar: {
+        name: "AIR VICE MARSHAL SA BUKAR (NAF/TBD)",
+        title: "Chief of Accounts and Budget, February 2026 - Present",
+        image: "img/chiefs/bukar.jpg",
+        yearsOfService: "Current",
+        appointments: "Financial Stewardship Leader",
+        biography: "The Nigerian Air Force Finance Specialty proudly inducts Air Vice Marshal SA Bukar into its Hall of Fame. Air Vice Marshal SA Bukar's tenure as Chief of Accounts and Budget is distinguished by strategic financial stewardship and an unwavering commitment to strengthening the institutional capacity of the Finance Specialty. Through prudent fiscal management and disciplined financial planning, he continues to ensure that the Nigerian Air Force sustains sound financial governance while effectively supporting the Service's operational and administrative obligations. Under his leadership, the Accounts and Budget Branch continues to reinforce robust internal control systems, strengthen audit compliance mechanisms, and deepen transparency across financial processes. His emphasis on accountability, professionalism, and ethical financial management further entrenches a culture of integrity within the Finance Specialty, thereby sustaining the confidence of Nigerian Air Force leadership and external oversight institutions. A firm advocate of human capital development, Air Vice Marshal SA Bukar actively champions the professional growth of finance personnel through mentorship, structured training, and institutional learning. His dedication to the welfare and advancement of personnel continues to nurture a spirit of unity, discipline, and excellence across the Specialty. Air Vice Marshal SA Bukar's leadership continues to exemplify responsible stewardship, quiet strength, and unwavering dedication to the advancement of the Nigerian Air Force Finance Specialty, inspiring present and future custodians of the Specialty to uphold the highest standards of professionalism and service."
+      },
       nwagwu: {
         name: "AIR VICE MARSHAL CU NWAGWU (NAF/2176)",
-        title: "Chief of Accounts and Budget, June 28, 2023 - Present",
+        title: "Chief of Accounts and Budget, June 28, 2023 - February 26, 2026",
         image: "img/chiefs/nwagwu.png",
-        yearsOfService: "Current",
+        yearsOfService: "2.7 Years",
         appointments: "Hall of Fame Founder",
         biography: "The Nigerian Air Force Finance Specialty inducts Air Vice Marshal CU Nwagwu, into the Hall of Fame – an edifice he himself conceived and actualized while serving as the Chief of Accounts and Budget. Air Vice Marshal Nwagwu redefined leadership by fostering a culture of camaraderie where every personnel of the Finance Specialty felt valued. He led with purposeful leadership that fortified the Specialty as one family. Air Vice Marshal Nwagwu also spearheaded the monumental construction and relocation of the Nigerian Air Force School of Finance and Accounts to its permanent site in Ibadan, a visionary investment in the future of the Specialty. This state-of-the-art institution, hailed as a 'citadel of financial excellence,' now trains generations of professionals, ensuring the Specialty's readiness for 21st-century challenges. His hands-on oversight of this legacy project, from blueprint to unveiling, stands as a testament to his relentless drive to institutionalize knowledge and empower personnel of the Finance Specialty. Moreover, Air Vice Marshal Nwagwu's foresight gave birth to this Hall of Fame, a sacred space where the Specialty's history and heroes are enshrined. By championing its establishment, he ensured that the sacrifices and triumphs of predecessors would inspire successors, cementing institutional pride and continuity."
       },
@@ -997,7 +1014,7 @@
       
       // Display first chief by default
       setTimeout(() => {
-        displayProfile('nwagwu');
+        displayProfile('bukar');
       }, 500);
 
       // Handle chief selection
