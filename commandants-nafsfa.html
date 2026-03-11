@@ -605,7 +605,7 @@
           <span>Click to view profile</span>
         </div>
         <div class="commandants-list">
-          <div class="commandant-item active" data-commandant="adebowale">
+          <div class="commandant-item" data-commandant="adebowale">
             <div class="avatar">
               <img src="img/commandants/image1.jpg" alt="GP CAPT HA Adebowale">
             </div>
@@ -683,7 +683,16 @@
             </div>
             <div class="info">
               <h4>GP CAPT GJ Apochi</h4>
-              <span>Jan 25 - Present</span>
+              <span>Jan 25 - Dec 25</span>
+            </div>
+          </div>
+          <div class="commandant-item active" data-commandant="muhammad">
+            <div class="avatar">
+              <img src="img/commandants/image10.jpg" alt="Air Cdre AK Muhammad">
+            </div>
+            <div class="info">
+              <h4>Air Cdre AK Muhammad</h4>
+              <span>Dec 25 - Present</span>
             </div>
           </div>
         </div>
@@ -773,11 +782,19 @@
       },
       apochi: {
         name: "GROUP CAPTAIN GJ APOCHI (NAF/2795)",
-        title: "Commandant NAFSFA, Jan 25 - Present",
+        title: "Commandant NAFSFA, January 2025 - December 2025",
         image: "img/commandants/image9.jpg",
-        yearsOfService: "Current",
+        yearsOfService: "1 Year",
         appointments: "Ninth Commandant",
-        biography: "George James Apochi was born on 22 November 1976 and hails  from Ogbadibo Local Government Area of Benue State . He holds a Bachelor of Science Degree in Accounting  and Masters in Business Administration from the Prestigious Ahmadu Bello University , Zaria   . He also holds a Master of Science Degree and a PhD in Accounting both from the prestigious Nigerian Defence Academy Kaduna . He is a Fellow of the Institute of Chartered Accountants of Nigeria and a fellow of the Chartered institute of taxation of Nigeria . He is the incumbent Commandant of NAFSFA . A position he assumed in January 2025."
+        biography: "George James Apochi was born on 22 November 1976 and hails from Ogbadibo Local Government Area of Benue State. He holds a Bachelor of Science Degree in Accounting and Masters in Business Administration from the Prestigious Ahmadu Bello University, Zaria. He also holds a Master of Science Degree and a PhD in Accounting both from the prestigious Nigerian Defence Academy Kaduna. He is a Fellow of the Institute of Chartered Accountants of Nigeria and a fellow of the Chartered Institute of Taxation of Nigeria. He served as the ninth Commandant of NAFSFA from January 2025 to December 2025."
+      },
+      muhammad: {
+        name: "AIR COMMODORE ABDULLAHI KANTI MUHAMMAD",
+        title: "Commandant NAFSFA, December 2025 - Present",
+        image: "img/commandants/image10.jpg",
+        yearsOfService: "Current",
+        appointments: "Tenth Commandant",
+        biography: "Air Commodore Abdullahi Kanti Muhammad hails from Hadejia Local Government Area of Jigawa State, Nigeria. He had his primary education at Dubantu Primary School Hadejia, thereafter attended Government College, Birnin Kudu, Jigawa State. He proceeded to Bayero University Kano where he obtained a BSc in Accounting and was subsequently commissioned into the Nigerian Air Force in December 2002. He holds a Master in Business Administration from Federal University of Technology Yola, a Master in Treasury Management from Bayero University Kano, and a Master in International Affairs and Defence Studies from the Nigerian Defence Academy. He is a member of several notable professional bodies including Member National Institute of Management (MNIM), Fellow Certified Public Accountant (FCPA), Fellow Institute of Public Accountant of Nigeria (IPAN), Fellow Institute of Certified Management of Accountant (ICMA), Fellow Institute of Management Consultant (FIMC), and Fellow Certified National Accountant of Nigeria (ANAN), among others. He has attended several military and academic courses including the Junior and Senior Staff Courses at Armed Forces Command and Staff College Jaji, Government Integrated Financial Management System Information (GIFMIS) training in Malaysia, and International Public Sector Accounting Standard (IPSAS) training in the United Kingdom. Air Commodore AK Muhammad is a sound Nigerian Air Force Finance Officer who served as Director of Accounts at HQ NAF, Director of Finance and Accounts at Armed Forces Command and Staff College Jaji, Commander 081 Pay and Accounting Group NAF Ikeja Lagos, and Director of Non-Public Funds HQ NAF. He was promoted to the rank of Air Commodore on 20 December 2025 and presently serves as the Commandant of the Nigerian Air Force School of Finance and Accounts (NAFSFA), Ibadan."
       },
     };
 
@@ -824,7 +841,7 @@
       
       // Display first commandant by default
       setTimeout(() => {
-        displayProfile('adebowale');
+        displayProfile('muhammad');
       }, 500);
 
       // Handle commandant selection
